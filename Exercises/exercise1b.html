@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Lesson 1 Exercise 2 | Betta By Design</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+		<style>
+			[hidden] {
+	            display: none !important;
+            }
+			.lesson-step {
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				font-size: 0.8em;
+				font-weight: 600;
+				margin-bottom: 0.5em;
+			}
+
+			.ex-label {
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				font-size: 0.8em;
+				font-weight: 600;
+				margin-top: 2em;
+				margin-right: 0;
+				margin-bottom: 0.5em;
+				margin-left: 0;
+			}
+
+			.ex-row {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 1.25em;
+				margin-top: 0;
+				margin-right: 0;
+				margin-bottom: 1em;
+				margin-left: 0;
+			}
+
+			.ex-card {
+				box-sizing: border-box;
+				border-width: 2px;
+				border-style: solid;
+				border-color: #c9c9c9;
+				border-radius: 0.35em;
+				padding: 0.75em;
+				text-align: center;
+				background-color: #ffffff;
+			}
+
+			.ex-card:focus-visible {
+				outline-width: 3px;
+				outline-style: solid;
+				outline-color: #212931;
+				outline-offset: 2px;
+			}
+
+			.ex-card .cap {
+				margin-top: 0.5em;
+				font-weight: 600;
+			}
+
+			.supply {
+				flex-grow: 1;
+				flex-shrink: 1;
+				flex-basis: 130px;
+				max-width: 170px;
+				cursor: grab;
+			}
+
+			.supply img {
+				display: block;
+				width: 100%;
+				height: 90px;
+				object-fit: cover;
+				border-radius: 0.25em;
+			}
+
+			.supply.selected {
+				outline-width: 3px;
+				outline-style: solid;
+				outline-color: #212931;
+				outline-offset: 2px;
+			}
+
+			.supply.placed {
+				opacity: 0.45;
+			}
+
+			.job {
+				flex-grow: 1;
+				flex-shrink: 1;
+				flex-basis: 240px;
+				max-width: 320px;
+				border-style: dashed;
+				border-color: #585858;
+				min-height: 110px;
+				cursor: pointer;
+				text-align: left;
+			}
+
+			.job.over {
+				background-color: #f0f0f0;
+			}
+
+			.job .job-text {
+				font-weight: 600;
+			}
+
+			.job .slot {
+				margin-top: 0.5em;
+				min-height: 3em;
+				display: flex;
+				align-items: center;
+				gap: 0.75em;
+			}
+
+			.job .slot img {
+				width: 48px;
+				height: 48px;
+				object-fit: cover;
+				border-radius: 0.25em;
+			}
+
+			.job .slot .empty {
+				color: #8a8a8a;
+			}
+
+			#result {
+				border-width: 2px;
+				border-style: solid;
+				border-color: #585858;
+				border-radius: 0.35em;
+				padding: 1.25em;
+				margin-top: 1.5em;
+				margin-right: 0;
+				margin-bottom: 0;
+				margin-left: 0;
+				box-sizing: border-box;
+				text-align: left;
+			}
+
+			#result h2 {
+				font-size: 1.4em;
+			}
+
+			#result.pass {
+				background-color: #e3f4e6;
+				border-color: #2e7d46;
+			}
+
+			#result.fail {
+				background-color: #fbe4e4;
+				border-color: #b3261e;
+			}
+
+			#main header p {
+				font-size: 1.6em;
+				line-height: 1.4;
+			}
+
+			#status {
+				font-size: 1.4em;
+			}
+
+			details summary {
+				font-size: 1.4em;
+				cursor: pointer;
+			}
+
+			details p {
+				font-size: 1.2em;
+			}
+
+			#checklist {
+				list-style: none;
+				padding-left: 0;
+				margin-bottom: 1em;
+			}
+
+			details {
+				margin-top: 1.5em;
+				margin-right: 0;
+				margin-bottom: 1.5em;
+				margin-left: 0;
+				border-width: 2px;
+				border-style: solid;
+				border-color: #c9c9c9;
+				border-radius: 0.35em;
+				padding-top: 0.75em;
+				padding-right: 1em;
+				padding-bottom: 0.75em;
+				padding-left: 1em;
+				background-color: #ffffff;
+				text-align: left;
+			}
+
+			details[open] {
+				border-color: #585858;
+			}
+
+			details p {
+				margin-top: 0.75em;
+				margin-right: 0;
+				margin-bottom: 0;
+				margin-left: 0;
+			}
+
+			.ex-layout {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 2.5em;
+				align-items: flex-start;
+				margin-bottom: 3em;
+			}
+
+			.ex-stage {
+				flex-grow: 3;
+				flex-shrink: 1;
+				flex-basis: 460px;
+				min-width: 0;
+			}
+
+			.ex-side {
+				flex-grow: 2;
+				flex-shrink: 1;
+				flex-basis: 300px;
+				min-width: 0;
+				position: sticky;
+				top: 1.5em;
+			}
+		</style>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+
+							<!-- Logo -->
+								<a href="../index.html" class="logo">
+									<span class="symbol"><img src="../images/logo.png" alt="" /></span><span class="title">Betta By Design</span>
+								</a>
+
+							<!-- Navigation -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<h2>Menu</h2>
+						<ul>
+							<li><a href="../index.html">Home</a></li>
+							<li><a href="../index.html#how">How it works</a></li>
+							<li><a href="../index.html#lessons">Lessons</a></li>
+							<li><a href="../index.html#study">For participants</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<header>
+								<div class="lesson-step">Lesson 1 &middot; Exercise 2 of 2</div>
+								<h1>Match each supply to its job</h1>
+								<p id="prompt">Drag/click each supply onto the job it does.</p>
+							</header>
+
+							<noscript><p>This exercise needs JavaScript. Please turn it on in your browser.</p></noscript>
+
+							<div class="ex-layout">
+								<div class="ex-stage">
+									<div class="ex-label">Supplies</div>
+									<div class="ex-row" id="supplies"></div>
+
+									<div class="ex-label">Jobs</div>
+									<div class="ex-row" id="jobs"></div>
+
+									<div id="result" hidden>
+										<h2 id="resultTitle" tabindex="-1"></h2>
+										<ul id="checklist"></ul>
+										<p id="summary"></p>
+										<ul class="actions">
+											<li><a id="nextLink" href="../Lessons/lesson2a.html" class="button primary" hidden>Continue to Lesson 2</a></li>
+											<li><button id="retryBtn" class="button" hidden>Try again</button></li>
+										</ul>
+									</div>
+								</div>
+
+								<aside class="ex-side">
+									<p id="status" aria-live="polite">Nothing placed yet.</p>
+
+									<details>
+										<summary>Need a hint?</summary>
+										<p>Most of what each piece does is in its name!</p>
+									</details>
+
+									<ul class="actions">
+										<li><button id="checkBtn" class="button primary" disabled>Check my answers</button></li>
+									</ul>
+								</aside>
+
+							</div>
+
+							<ul class="actions">
+								<li><a href="../Lessons/lesson1b.html" class="button">Back to the video</a></li>
+								<li><a href="../index.html#lessons" class="button">Back to all lessons</a></li>
+							</ul>
+						</div>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<section>
+								<h2>About this project</h2>
+								<p>Betta By Design is a course project prototype. It works best on a computer with an internet connection.</p>
+							</section>
+							<ul class="copyright">
+								<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+			<script>
+				var SUPPLIES = {
+					tank: {
+						name: 'Tank',
+						img: '../images/emptytank.jpg',
+						job: 'Holds everything for your betta.'
+					},
+					heater: {
+						name: 'Heater',
+						img: '../images/waterheater.jpg',
+						job: 'Keeps the water at the right temperature.'
+					},
+					filter: {
+						name: 'Filter',
+						img: '../images/waterfilter.jpg',
+						job: 'Keeps the water clean.'
+					},
+					conditioner: {
+						name: 'Water conditioner',
+						img: '../images/waterconditioner.jpg',
+						job: 'Makes tap water safe for fish.'
+					},
+					testkit: {
+						name: 'Test kit',
+						img: '../images/testkit.jpg',
+						job: 'Lets you check if the water is getting dirty.'
+					},
+					decor: {
+						name: 'Decorations',
+						img: '../images/decor.jpeg',
+						job: 'Gives your betta a place to hide.'
+					}
+				};
+
+				var IDS = ['tank', 'heater', 'filter', 'conditioner', 'testkit', 'decor'];
+				var STORE_KEY = 'bbd_ex1b';
+
+				var supplyOrder;
+				var jobOrder;
+				var placement;
+				var selected;
+				var locked;
+				var passed = false;
+
+				var supplyRow = document.getElementById('supplies');
+				var jobRow = document.getElementById('jobs');
+				var statusEl = document.getElementById('status');
+				var checkBtn = document.getElementById('checkBtn');
+				var resultBox = document.getElementById('result');
+				var resultTitle = document.getElementById('resultTitle');
+				var checklist = document.getElementById('checklist');
+				var summary = document.getElementById('summary');
+				var nextLink = document.getElementById('nextLink');
+				var retryBtn = document.getElementById('retryBtn');
+
+				function shuffle(a) {
+					for (var i = a.length - 1; i > 0; i = i - 1) {
+						var j = Math.floor(Math.random() * (i + 1));
+						var t = a[i];
+						a[i] = a[j];
+						a[j] = t;
+					}
+					return a;
+				}
+
+				function setStatus(text) {
+					statusEl.textContent = text;
+				}
+
+				function setShown(el, shown) {
+					if (shown === true) {
+						el.hidden = false;
+						el.style.removeProperty('display');
+					} else {
+						el.hidden = true;
+						el.style.setProperty('display', 'none', 'important');
+					}
+				}
+
+				function countPlaced() {
+					var n = 0;
+					for (var i = 0; i < IDS.length; i = i + 1) {
+						if (placement[IDS[i]]) {
+							n = n + 1;
+						}
+					}
+					return n;
+				}
+
+				function jobOf(supplyId) {
+					for (var i = 0; i < IDS.length; i = i + 1) {
+						if (placement[IDS[i]] === supplyId) {
+							return IDS[i];
+						}
+					}
+					return null;
+				}
+
+				function logAttempt(didPass) {
+					try {
+						var saved = localStorage.getItem(STORE_KEY);
+						var d;
+						if (saved === null || saved === '') {
+							d = {
+								attempts: 0,
+								passed: false
+							};
+						} else {
+							d = JSON.parse(saved);
+						}
+						d.attempts = d.attempts + 1;
+						if (didPass === true) {
+							d.passed = true;
+						}
+						localStorage.setItem(STORE_KEY, JSON.stringify(d));
+					} catch (e) {
+					}
+				}
+
+				function markSupplies() {
+					var cards = supplyRow.querySelectorAll('.supply');
+					for (var i = 0; i < cards.length; i = i + 1) {
+						var id = cards[i].getAttribute('data-id');
+						if (selected === id) {
+							cards[i].classList.add('selected');
+						} else {
+							cards[i].classList.remove('selected');
+						}
+						if (jobOf(id) !== null) {
+							cards[i].classList.add('placed');
+						} else {
+							cards[i].classList.remove('placed');
+						}
+					}
+				}
+
+				function renderSlots() {
+					var zones = jobRow.querySelectorAll('.job');
+					for (var i = 0; i < zones.length; i = i + 1) {
+						var jobId = zones[i].getAttribute('data-job');
+						var slot = zones[i].querySelector('.slot');
+						var sid = placement[jobId];
+						if (sid) {
+							slot.innerHTML = '<img src="' + SUPPLIES[sid].img + '" alt="" /><span class="cap">' + SUPPLIES[sid].name + '</span>';
+						} else {
+							slot.innerHTML = '<span class="empty">Drop a supply here</span>';
+						}
+					}
+				}
+
+				function updateStatus() {
+					var n = countPlaced();
+					if (n === 0) {
+						setStatus('Nothing placed yet.');
+					} else if (n < IDS.length) {
+						setStatus(n + ' of ' + IDS.length + ' supplies placed.');
+					} else {
+						setStatus('All supplies placed. Select "Check my answers", or move any of them.');
+					}
+					if (n < IDS.length) {
+						checkBtn.disabled = true;
+					} else {
+						checkBtn.disabled = false;
+					}
+				}
+
+				function select(id) {
+					if (locked === true) {
+						return;
+					}
+					selected = id;
+					markSupplies();
+					setStatus(SUPPLIES[id].name + ' selected. Now choose a job.');
+				}
+
+				function place(supplyId, jobId) {
+					if (locked === true) {
+						return;
+					}
+					if (SUPPLIES[supplyId] === undefined) {
+						return;
+					}
+					var oldJob = jobOf(supplyId);
+					if (oldJob !== null) {
+						placement[oldJob] = null;
+					}
+					placement[jobId] = supplyId;
+					selected = null;
+					renderSlots();
+					markSupplies();
+					updateStatus();
+				}
+
+				function removeFrom(jobId) {
+					if (locked === true) {
+						return;
+					}
+					placement[jobId] = null;
+					renderSlots();
+					markSupplies();
+					updateStatus();
+				}
+
+				function addSupplyCard(id) {
+					var el = document.createElement('div');
+					el.className = 'ex-card supply';
+					el.setAttribute('role', 'button');
+					el.setAttribute('tabindex', '0');
+					el.setAttribute('draggable', 'true');
+					el.setAttribute('data-id', id);
+					el.setAttribute('aria-label', SUPPLIES[id].name);
+					el.innerHTML = '<img src="' + SUPPLIES[id].img + '" alt="" /><div class="cap">' + SUPPLIES[id].name + '</div>';
+
+					el.addEventListener('dragstart', function (e) {
+						e.dataTransfer.setData('text/plain', id);
+						e.dataTransfer.effectAllowed = 'move';
+						selected = id;
+					});
+
+					el.addEventListener('click', function () {
+						select(id);
+					});
+
+					el.addEventListener('keydown', function (e) {
+						if (e.key === 'Enter' || e.key === ' ') {
+							e.preventDefault();
+							select(id);
+						}
+					});
+
+					supplyRow.appendChild(el);
+				}
+
+				function addJobZone(jobId) {
+					var zone = document.createElement('div');
+					zone.className = 'ex-card job';
+					zone.setAttribute('role', 'button');
+					zone.setAttribute('tabindex', '0');
+					zone.setAttribute('data-job', jobId);
+					zone.setAttribute('aria-label', 'Job: ' + SUPPLIES[jobId].job);
+					zone.innerHTML = '<div class="job-text">' + SUPPLIES[jobId].job + '</div><div class="slot"></div>';
+
+					function activate() {
+						if (selected) {
+							place(selected, jobId);
+						} else if (placement[jobId]) {
+							removeFrom(jobId);
+						} else {
+							setStatus('Select a supply first, then select a job.');
+						}
+					}
+
+					zone.addEventListener('dragover', function (e) {
+						e.preventDefault();
+						zone.classList.add('over');
+					});
+
+					zone.addEventListener('dragleave', function () {
+						zone.classList.remove('over');
+					});
+
+					zone.addEventListener('drop', function (e) {
+						e.preventDefault();
+						zone.classList.remove('over');
+						var droppedId = e.dataTransfer.getData('text/plain');
+						place(droppedId, jobId);
+					});
+
+					zone.addEventListener('click', activate);
+
+					zone.addEventListener('keydown', function (e) {
+						if (e.key === 'Enter' || e.key === ' ') {
+							e.preventDefault();
+							activate();
+						}
+					});
+
+					jobRow.appendChild(zone);
+				}
+
+				function newRound() {
+					supplyOrder = shuffle(IDS.slice());
+					jobOrder = shuffle(IDS.slice());
+					placement = {};
+					selected = null;
+					locked = false;
+					passed = false;
+
+					supplyRow.innerHTML = '';
+					jobRow.innerHTML = '';
+					for (var i = 0; i < supplyOrder.length; i = i + 1) {
+						addSupplyCard(supplyOrder[i]);
+					}
+					for (var k = 0; k < jobOrder.length; k = k + 1) {
+						addJobZone(jobOrder[k]);
+					}
+
+					renderSlots();
+					markSupplies();
+
+					setShown(checkBtn, true);
+					checkBtn.disabled = true;
+					resultBox.hidden = true;
+					resultBox.className = '';
+					setShown(nextLink, false);
+					setShown(retryBtn, false);
+					setStatus('Nothing placed yet.');
+				}
+
+				function addLine(text) {
+					var li = document.createElement('li');
+					li.textContent = text;
+					checklist.appendChild(li);
+				}
+
+				function check() {
+					if (countPlaced() < IDS.length) {
+						return;
+					}
+
+					var score = 0;
+					checklist.innerHTML = '';
+
+					for (var i = 0; i < jobOrder.length; i = i + 1) {
+						var jobId = jobOrder[i];
+						var got = placement[jobId];
+						if (got === jobId) {
+							score = score + 1;
+							addLine('Passed: "' + SUPPLIES[jobId].job + '" is the job of the ' + SUPPLIES[jobId].name.toLowerCase() + '.');
+						} else {
+							addLine('Not yet: "' + SUPPLIES[jobId].job + '" is the job of the ' + SUPPLIES[jobId].name.toLowerCase() + ', not the ' + SUPPLIES[got].name.toLowerCase() + '.');
+						}
+					}
+
+					if (score === IDS.length) {
+						passed = true;
+					} else {
+						passed = false;
+					}
+					logAttempt(passed);
+					locked = true;
+
+					if (passed === true) {
+						resultTitle.textContent = 'Nice work. You passed!';
+						summary.textContent = score + ' of ' + IDS.length + ' checks passed.';
+						resultBox.className = 'pass';
+						setShown(nextLink, true);
+						setShown(retryBtn, true);
+					} else {
+						resultTitle.textContent = 'Not this time.';
+						summary.textContent = score + ' of ' + IDS.length + ' checks passed. Fix what did not pass and try again.';
+						resultBox.className = 'fail';
+						setShown(nextLink, false);
+						setShown(retryBtn, true);
+					}
+
+					resultBox.hidden = false;
+					setShown(checkBtn, false);
+					resultTitle.focus();
+				}
+
+				document.addEventListener('dragover', function (e) {
+					var edge = 120;
+					var speed = 18;
+					if (e.clientY > window.innerHeight - edge) {
+						window.scrollBy(0, speed);
+					} else if (e.clientY < edge) {
+						window.scrollBy(0, -speed);
+					}
+				});
+
+				checkBtn.addEventListener('click', check);
+				retryBtn.addEventListener('click', newRound);
+				newRound();
+			</script>
+
+	</body>
+</html>

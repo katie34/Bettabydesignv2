@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Lesson 8 Exercise 1 | Betta By Design</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+		<style>
+            [hidden] {
+	            display: none !important;
+            }
+			.lesson-step {
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				font-size: 0.8em;
+				font-weight: 600;
+				margin-bottom: 0.5em;
+			}
+
+			.ex-label {
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				font-size: 0.8em;
+				font-weight: 600;
+				margin-top: 2em;
+				margin-right: 0;
+				margin-bottom: 0.5em;
+				margin-left: 0;
+			}
+
+			.ex-row {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 1.25em;
+				margin-top: 0;
+				margin-right: 0;
+				margin-bottom: 1em;
+				margin-left: 0;
+			}
+
+			.ex-card {
+				box-sizing: border-box;
+				border-width: 2px;
+				border-style: solid;
+				border-color: #c9c9c9;
+				border-radius: 0.35em;
+				padding: 0.75em;
+				text-align: center;
+				background-color: #ffffff;
+			}
+
+			.ex-card:focus-visible {
+				outline-width: 3px;
+				outline-style: solid;
+				outline-color: #212931;
+				outline-offset: 2px;
+			}
+
+			.ex-card .cap {
+				margin-top: 0.5em;
+				font-weight: 600;
+			}
+
+			.reading {
+				max-width: 420px;
+			}
+
+			.reading .reading-label {
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				font-size: 0.8em;
+				font-weight: 600;
+			}
+
+			.reading .reading-number {
+				font-size: 3.5em;
+				font-weight: 600;
+				line-height: 1.2;
+			}
+
+			.slider-label {
+				display: block;
+				font-size: 1.2em;
+				font-weight: 600;
+				margin-top: 1.5em;
+				margin-right: 0;
+				margin-bottom: 0.75em;
+				margin-left: 0;
+			}
+
+			#amount {
+				-webkit-appearance: none;
+				appearance: none;
+				display: block;
+				width: 100%;
+				max-width: 420px;
+				height: 8px;
+				margin-top: 1em;
+				margin-right: 0;
+				margin-bottom: 1em;
+				margin-left: 0;
+				border-radius: 4px;
+				background-color: #212931;
+				cursor: pointer;
+			}
+
+			#amount::-webkit-slider-thumb {
+				-webkit-appearance: none;
+				appearance: none;
+				width: 28px;
+				height: 28px;
+				border-radius: 50%;
+				border-width: 3px;
+				border-style: solid;
+				border-color: #ffffff;
+				background-color: #212931;
+				box-shadow: 0 0 0 2px #212931;
+			}
+
+			#amount::-moz-range-track {
+				height: 8px;
+				border-radius: 4px;
+				background-color: #212931;
+			}
+
+			#amount::-moz-range-thumb {
+				width: 22px;
+				height: 22px;
+				border-radius: 50%;
+				border-width: 3px;
+				border-style: solid;
+				border-color: #ffffff;
+				background-color: #212931;
+				box-shadow: 0 0 0 2px #212931;
+			}
+
+			#amount:focus-visible {
+				outline-width: 3px;
+				outline-style: solid;
+				outline-color: #212931;
+				outline-offset: 6px;
+			}
+
+			.ticks {
+				position: relative;
+				max-width: 420px;
+				height: 2.5em;
+				margin-top: 0;
+				margin-right: 0;
+				margin-bottom: 1em;
+				margin-left: 0;
+			}
+
+			.ticks .ticks-inner {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 14px;
+				right: 14px;
+			}
+
+			.ticks .tick {
+				position: absolute;
+				top: 0;
+				transform: translateX(-50%);
+				padding-top: 0.6em;
+				border-top-width: 2px;
+				border-top-style: solid;
+				border-top-color: #212931;
+				font-weight: 600;
+				white-space: nowrap;
+				text-align: center;
+			}
+
+			#amount:disabled {
+				opacity: 0.5;
+				cursor: default;
+			}
+
+			#result {
+				border-width: 2px;
+				border-style: solid;
+				border-color: #585858;
+				border-radius: 0.35em;
+				padding: 1.25em;
+				margin-top: 1.5em;
+				margin-right: 0;
+				margin-bottom: 0;
+				margin-left: 0;
+				box-sizing: border-box;
+				text-align: left;
+			}
+
+			#result h2 {
+				font-size: 1.4em;
+			}
+
+			#result.pass {
+				background-color: #e3f4e6;
+				border-color: #2e7d46;
+			}
+
+			#result.fail {
+				background-color: #fbe4e4;
+				border-color: #b3261e;
+			}
+
+			#main header p {
+				font-size: 1.6em;
+				line-height: 1.4;
+			}
+
+			#status {
+				font-size: 1.4em;
+			}
+
+			details summary {
+				font-size: 1.4em;
+				cursor: pointer;
+			}
+
+			details p {
+				font-size: 1.2em;
+			}
+
+			#checklist {
+				list-style: none;
+				padding-left: 0;
+				margin-bottom: 1em;
+			}
+
+			details {
+				margin-top: 1.5em;
+				margin-right: 0;
+				margin-bottom: 1.5em;
+				margin-left: 0;
+				border-width: 2px;
+				border-style: solid;
+				border-color: #c9c9c9;
+				border-radius: 0.35em;
+				padding-top: 0.75em;
+				padding-right: 1em;
+				padding-bottom: 0.75em;
+				padding-left: 1em;
+				background-color: #ffffff;
+				text-align: left;
+			}
+
+			details[open] {
+				border-color: #585858;
+			}
+
+			details p {
+				margin-top: 0.75em;
+				margin-right: 0;
+				margin-bottom: 0;
+				margin-left: 0;
+			}
+
+			.ex-layout {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 2.5em;
+				align-items: flex-start;
+				margin-bottom: 3em;
+			}
+
+			.ex-stage {
+				flex-grow: 3;
+				flex-shrink: 1;
+				flex-basis: 460px;
+				min-width: 0;
+			}
+
+			.ex-side {
+				flex-grow: 2;
+				flex-shrink: 1;
+				flex-basis: 300px;
+				min-width: 0;
+				position: sticky;
+				top: 1.5em;
+			}
+		</style>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+
+							<!-- Logo -->
+								<a href="../index.html" class="logo">
+									<span class="symbol"><img src="../images/logo.png" alt="" /></span><span class="title">Betta By Design</span>
+								</a>
+
+							<!-- Navigation -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<h2>Menu</h2>
+						<ul>
+							<li><a href="../index.html">Home</a></li>
+							<li><a href="../index.html#how">How it works</a></li>
+							<li><a href="../index.html#lessons">Lessons</a></li>
+							<li><a href="../index.html#study">For participants</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<header>
+								<div class="lesson-step">Lesson 8 &middot; Exercise 1 of 2</div>
+								<h1>Cleaning & Feeding</h1>
+								<p id="prompt">Move the slider to set how much water you take out of the tank.</p>
+							</header>
+
+							<noscript><p>This exercise needs JavaScript. Please turn it on in your browser.</p></noscript>
+
+							<div class="ex-layout">
+								<div class="ex-stage">
+									<div class="ex-label">Your tank</div>
+									<div class="ex-card reading">
+										<div class="reading-label">Water removed</div>
+										<div class="reading-number" id="amountReading">50%</div>
+									</div>
+
+									<label class="slider-label" for="amount">Choose an amount</label>
+									<input type="range" id="amount" min="0" max="100" step="1" value="50" />
+									<div class="ticks" aria-hidden="true">
+										<div class="ticks-inner">
+											<div class="tick" style="left: 0%;">0</div>
+											<div class="tick" style="left: 100%;">All</div>
+										</div>
+									</div>
+
+									<div id="result" hidden>
+										<h2 id="resultTitle" tabindex="-1"></h2>
+										<ul id="checklist"></ul>
+										<p id="summary"></p>
+										<ul class="actions">
+											<li><a id="nextLink" href="../Lessons/lesson8b.html" class="button primary" hidden>Next video</a></li>
+											<li><button id="retryBtn" class="button" hidden>Try again</button></li>
+										</ul>
+									</div>
+								</div>
+
+								<aside class="ex-side">
+									<p id="status" aria-live="polite">Nothing placed yet.</p>
+
+									<details>
+										<summary>Need a hint?</summary>
+										<p>How much water did the video say was ideal to swap out each week?</p>
+									</details>
+
+									<ul class="actions">
+										<li><button id="checkBtn" class="button primary" disabled>Check my answer</button></li>
+									</ul>
+								</aside>
+
+							</div>
+
+							<ul class="actions">
+								<li><a href="../Lessons/lesson8a.html" class="button">Back to the video</a></li>
+								<li><a href="../index.html#lessons" class="button">Back to all lessons</a></li>
+							</ul>
+						</div>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<section>
+								<h2>About this project</h2>
+								<p>Betta By Design is a course project prototype. It works best on a computer with an internet connection.</p>
+							</section>
+							<ul class="copyright">
+								<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+			<script>
+				var LOW = 20;
+				var HIGH = 30;
+				var STORE_KEY = 'bbd_ex8a';
+
+				var moved;
+				var locked;
+				var passed = false;
+
+				var amount = document.getElementById('amount');
+				var readingEl = document.getElementById('amountReading');
+				var statusEl = document.getElementById('status');
+				var checkBtn = document.getElementById('checkBtn');
+				var resultBox = document.getElementById('result');
+				var resultTitle = document.getElementById('resultTitle');
+				var checklist = document.getElementById('checklist');
+				var summary = document.getElementById('summary');
+				var nextLink = document.getElementById('nextLink');
+				var retryBtn = document.getElementById('retryBtn');
+
+				function setStatus(text) {
+					statusEl.textContent = text;
+				}
+
+				function setShown(el, shown) {
+					if (shown === true) {
+						el.hidden = false;
+						el.style.removeProperty('display');
+					} else {
+						el.hidden = true;
+						el.style.setProperty('display', 'none', 'important');
+					}
+				}
+
+				function showAmount() {
+					var n = Number(amount.value);
+					readingEl.textContent = n + '%';
+					amount.setAttribute('aria-valuetext', n + ' percent of the water');
+				}
+
+				function logAttempt(didPass) {
+					try {
+						var saved = localStorage.getItem(STORE_KEY);
+						var d;
+						if (saved === null || saved === '') {
+							d = {
+								attempts: 0,
+								passed: false
+							};
+						} else {
+							d = JSON.parse(saved);
+						}
+
+						d.attempts = d.attempts + 1;
+
+						if (didPass === true) {
+							d.passed = true;
+						}
+
+						localStorage.setItem(STORE_KEY, JSON.stringify(d));
+					} catch (e) {
+					}
+				}
+
+				function startValue() {
+					if (Math.random() < 0.5) {
+						return Math.floor(Math.random() * 11);
+					} else {
+						return 50 + Math.floor(Math.random() * 51);
+					}
+				}
+
+				function newRound() {
+					moved = false;
+					locked = false;
+					passed = false;
+
+					amount.disabled = false;
+					amount.value = startValue();
+					showAmount();
+
+					setShown(checkBtn, true);
+					checkBtn.disabled = true;
+					resultBox.hidden = true;
+					resultBox.className = '';
+					setShown(nextLink, false);
+					setShown(retryBtn, false);
+					setStatus('Move the slider to choose how much water to take out.');
+				}
+
+				function addLine(text) {
+					var li = document.createElement('li');
+					li.textContent = text;
+					checklist.appendChild(li);
+				}
+
+				function check() {
+					if (moved === false) {
+						return;
+					}
+
+					var n = Number(amount.value);
+					var score = 0;
+					checklist.innerHTML = '';
+
+					if (n >= LOW) {
+						score = score + 1;
+						addLine('Passed: Not too little. Taking out ' + n + '% is enough to help.');
+					} else {
+						addLine('Not yet: Too little. Taking out ' + n + '% is not the ideal amount.');
+					}
+
+					if (n <= HIGH) {
+						score = score + 1;
+						addLine('Passed: Not too much. Taking out ' + n + '% is not a big shock for your betta.');
+					} else {
+						addLine('Not yet: Too much. Taking out ' + n + '% is a big change all at once.');
+					}
+
+					if (score === 2) {
+						passed = true;
+					} else {
+						passed = false;
+					}
+
+					logAttempt(passed);
+					locked = true;
+					amount.disabled = true;
+
+					if (passed === true) {
+						resultTitle.textContent = 'Nice work. You passed!';
+						summary.textContent = score + ' of 2 checks passed.';
+						resultBox.className = 'pass';
+						setShown(nextLink, true);
+						setShown(retryBtn, true);
+					} else {
+						resultTitle.textContent = 'Not this time.';
+						summary.textContent = score + ' of 2 checks passed. Fix what did not pass and try again.';
+						resultBox.className = 'fail';
+						setShown(nextLink, false);
+						setShown(retryBtn, true);
+					}
+
+					resultBox.hidden = false;
+					setShown(checkBtn, false);
+					resultTitle.focus();
+				}
+
+				amount.addEventListener('input', function () {
+					if (locked === true) {
+						return;
+					}
+					moved = true;
+					showAmount();
+					checkBtn.disabled = false;
+					setStatus('The amount is chosen. Select "Check my answer", or keep adjusting.');
+				});
+
+				checkBtn.addEventListener('click', check);
+				retryBtn.addEventListener('click', newRound);
+				newRound();
+			</script>
+
+	</body>
+</html>

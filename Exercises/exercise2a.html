@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Lesson 2 Exercise 1 | Betta By Design</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+		<style>
+			[hidden] {
+	            display: none !important;
+            }
+			.lesson-step {
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				font-size: 0.8em;
+				font-weight: 600;
+				margin-bottom: 0.5em;
+			}
+
+			.ex-label {
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				font-size: 0.8em;
+				font-weight: 600;
+				margin-top: 2em;
+				margin-right: 0;
+				margin-bottom: 0.5em;
+				margin-left: 0;
+			}
+
+			.ex-row {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 1.25em;
+				margin-top: 0;
+				margin-right: 0;
+				margin-bottom: 1em;
+				margin-left: 0;
+			}
+
+			.ex-card {
+				box-sizing: border-box;
+				border-width: 2px;
+				border-style: solid;
+				border-color: #c9c9c9;
+				border-radius: 0.35em;
+				padding: 0.75em;
+				text-align: center;
+				background-color: #ffffff;
+			}
+
+			.ex-card:focus-visible {
+				outline-width: 3px;
+				outline-style: solid;
+				outline-color: #212931;
+				outline-offset: 2px;
+			}
+
+			.ex-card .cap {
+				margin-top: 0.5em;
+				font-weight: 600;
+			}
+
+			.statement {
+				flex-grow: 1;
+				flex-shrink: 1;
+				flex-basis: 200px;
+				max-width: 260px;
+				font-weight: 600;
+				cursor: grab;
+			}
+
+			.statement.selected {
+				outline-width: 3px;
+				outline-style: solid;
+				outline-color: #212931;
+				outline-offset: 2px;
+			}
+
+			.statement.placed {
+				opacity: 0.45;
+			}
+
+			.home {
+				flex-grow: 1;
+				flex-shrink: 1;
+				flex-basis: 240px;
+				max-width: 320px;
+				border-style: dashed;
+				border-color: #585858;
+				min-height: 230px;
+				cursor: pointer;
+			}
+
+			.home.over {
+				background-color: #f0f0f0;
+			}
+
+			.home img {
+	            display: block;
+	            width: 100%;
+	            height: auto;
+	            border-radius: 0.25em;
+            }
+
+			.home .slot {
+				margin-top: 0.75em;
+				min-height: 3em;
+			}
+
+			.home .slot .empty {
+				color: #8a8a8a;
+			}
+
+			.chip {
+				border-width: 2px;
+				border-style: solid;
+				border-color: #585858;
+				border-radius: 0.35em;
+				padding-top: 0.4em;
+				padding-right: 0.6em;
+				padding-bottom: 0.4em;
+				padding-left: 0.6em;
+				margin-top: 0.5em;
+				margin-right: 0;
+				margin-bottom: 0;
+				margin-left: 0;
+				background-color: #f5f5f5;
+				font-weight: 600;
+				cursor: pointer;
+			}
+
+			.chip:focus-visible {
+				outline-width: 3px;
+				outline-style: solid;
+				outline-color: #212931;
+				outline-offset: 2px;
+			}
+
+			#result {
+				border-width: 2px;
+				border-style: solid;
+				border-color: #585858;
+				border-radius: 0.35em;
+				padding: 1.25em;
+				margin-top: 1.5em;
+				margin-right: 0;
+				margin-bottom: 0;
+				margin-left: 0;
+				box-sizing: border-box;
+				text-align: left;
+			}
+
+			#result h2 {
+				font-size: 1.4em;
+			}
+
+			#result.pass {
+				background-color: #e3f4e6;
+				border-color: #2e7d46;
+			}
+
+			#result.fail {
+				background-color: #fbe4e4;
+				border-color: #b3261e;
+			}
+
+			#main header p {
+				font-size: 1.6em;
+				line-height: 1.4;
+			}
+
+			#status {
+				font-size: 1.4em;
+			}
+
+			details summary {
+				font-size: 1.4em;
+				cursor: pointer;
+			}
+
+			details p {
+				font-size: 1.2em;
+			}
+
+			#checklist {
+				list-style: none;
+				padding-left: 0;
+				margin-bottom: 1em;
+			}
+
+			details {
+				margin-top: 1.5em;
+				margin-right: 0;
+				margin-bottom: 1.5em;
+				margin-left: 0;
+				border-width: 2px;
+				border-style: solid;
+				border-color: #c9c9c9;
+				border-radius: 0.35em;
+				padding-top: 0.75em;
+				padding-right: 1em;
+				padding-bottom: 0.75em;
+				padding-left: 1em;
+				background-color: #ffffff;
+				text-align: left;
+			}
+
+			details[open] {
+				border-color: #585858;
+			}
+
+			details p {
+				margin-top: 0.75em;
+				margin-right: 0;
+				margin-bottom: 0;
+				margin-left: 0;
+			}
+
+			.ex-layout {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 2.5em;
+				align-items: flex-start;
+				margin-bottom: 3em;
+			}
+
+			.ex-stage {
+				flex-grow: 3;
+				flex-shrink: 1;
+				flex-basis: 460px;
+				min-width: 0;
+			}
+
+			.ex-side {
+				flex-grow: 2;
+				flex-shrink: 1;
+				flex-basis: 300px;
+				min-width: 0;
+				position: sticky;
+				top: 1.5em;
+			}
+		</style>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+
+							<!-- Logo -->
+								<a href="../index.html" class="logo">
+									<span class="symbol"><img src="../images/logo.png" alt="" /></span><span class="title">Betta By Design</span>
+								</a>
+
+							<!-- Navigation -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<h2>Menu</h2>
+						<ul>
+							<li><a href="../index.html">Home</a></li>
+							<li><a href="../index.html#how">How it works</a></li>
+							<li><a href="../index.html#lessons">Lessons</a></li>
+							<li><a href="../index.html#study">For participants</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<header>
+								<div class="lesson-step">Lesson 2 &middot; Exercise 1 of 2</div>
+								<h1>Tank Size</h1>
+								<p id="prompt">Drag/click each statement to the home it describes.</p>
+							</header>
+
+							<noscript><p>This exercise needs JavaScript. Please turn it on in your browser.</p></noscript>
+
+							<div class="ex-layout">
+								<div class="ex-stage">
+									<div class="ex-label">Statements</div>
+									<div class="ex-row" id="statements"></div>
+
+									<div class="ex-label">Choose a home</div>
+									<div class="ex-row">
+										<div class="ex-card home" data-home="bowl" role="button" tabindex="0" aria-label="Small bowl">
+											<img src="../images/fishbowl.jpeg" alt="a small fish bowl" />
+											<div class="cap">Small bowl</div>
+											<div class="slot"></div>
+										</div>
+										<div class="ex-card home" data-home="tank" role="button" tabindex="0" aria-label="Tank">
+											<img src="../images/setuptank.jpg" alt="set up tank with no fish" />
+											<div class="cap">Tank</div>
+											<div class="slot"></div>
+										</div>
+									</div>
+
+									<div id="result" hidden>
+										<h2 id="resultTitle" tabindex="-1"></h2>
+										<ul id="checklist"></ul>
+										<p id="summary"></p>
+										<ul class="actions">
+											<li><a id="nextLink" href="../Lessons/lesson2b.html" class="button primary" hidden>Next video</a></li>
+											<li><button id="retryBtn" class="button" hidden>Try again</button></li>
+										</ul>
+									</div>
+								</div>
+
+								<aside class="ex-side">
+									<p id="status" aria-live="polite">Nothing placed yet.</p>
+
+									<details>
+										<summary>Need a hint?</summary>
+										<p>More water is more forgiving.</p>
+									</details>
+
+									<ul class="actions">
+										<li><button id="checkBtn" class="button primary" disabled>Check my answers</button></li>
+									</ul>
+								</aside>
+
+							</div>
+
+							<ul class="actions">
+								<li><a href="../Lessons/lesson2a.html" class="button">Back to the video</a></li>
+								<li><a href="../index.html#lessons" class="button">Back to all lessons</a></li>
+							</ul>
+						</div>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<section>
+								<h2>About this project</h2>
+								<p>Betta By Design is a course project prototype. It works best on a computer with an internet connection.</p>
+							</section>
+							<ul class="copyright">
+								<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+			<script>
+				var STATEMENTS = {
+					dirty: {
+						text: 'Gets dirty fast',
+						home: 'bowl',
+						why: 'A small amount of water gets dirty fast.'
+					},
+					swing: {
+						text: 'Temperature changes with the room',
+						home: 'bowl',
+						why: 'Temperature for a small amount of water changes with the room.'
+					},
+					clean: {
+						text: 'Stays cleaner longer',
+						home: 'tank',
+						why: 'More water stays cleaner longer.'
+					},
+					holds: {
+						text: 'Holds its temperature better',
+						home: 'tank',
+						why: 'More water holds its temperature better.'
+					}
+				};
+
+				var HOMES = {
+					bowl: 'small bowl',
+					tank: 'tank'
+				};
+
+				var IDS = ['dirty', 'swing', 'clean', 'holds'];
+				var STORE_KEY = 'bbd_ex2a';
+
+				var order;
+				var placement;
+				var selected;
+				var locked;
+				var passed = false;
+
+				var statementRow = document.getElementById('statements');
+				var statusEl = document.getElementById('status');
+				var checkBtn = document.getElementById('checkBtn');
+				var resultBox = document.getElementById('result');
+				var resultTitle = document.getElementById('resultTitle');
+				var checklist = document.getElementById('checklist');
+				var summary = document.getElementById('summary');
+				var nextLink = document.getElementById('nextLink');
+				var retryBtn = document.getElementById('retryBtn');
+				var zones = document.querySelectorAll('.home');
+
+				function shuffle(a) {
+					for (var i = a.length - 1; i > 0; i = i - 1) {
+						var j = Math.floor(Math.random() * (i + 1));
+						var t = a[i];
+						a[i] = a[j];
+						a[j] = t;
+					}
+					return a;
+				}
+
+				function setStatus(text) {
+					statusEl.textContent = text;
+				}
+
+				function setShown(el, shown) {
+					if (shown === true) {
+						el.hidden = false;
+						el.style.removeProperty('display');
+					} else {
+						el.hidden = true;
+						el.style.setProperty('display', 'none', 'important');
+					}
+				}
+
+				function countPlaced() {
+					var n = 0;
+					for (var i = 0; i < IDS.length; i = i + 1) {
+						if (placement[IDS[i]]) {
+							n = n + 1;
+						}
+					}
+					return n;
+				}
+
+				function logAttempt(didPass) {
+					try {
+						var saved = localStorage.getItem(STORE_KEY);
+						var d;
+						if (saved === null || saved === '') {
+							d = {
+								attempts: 0,
+								passed: false
+							};
+						} else {
+							d = JSON.parse(saved);
+						}
+
+						d.attempts = d.attempts + 1;
+
+						if (didPass === true) {
+							d.passed = true;
+						}
+
+						localStorage.setItem(STORE_KEY, JSON.stringify(d));
+					} catch (e) {
+					}
+				}
+
+				function markStatements() {
+					var cards = statementRow.querySelectorAll('.statement');
+					for (var i = 0; i < cards.length; i = i + 1) {
+						var id = cards[i].getAttribute('data-id');
+
+						if (selected === id) {
+							cards[i].classList.add('selected');
+						} else {
+							cards[i].classList.remove('selected');
+						}
+
+						if (placement[id]) {
+							cards[i].classList.add('placed');
+						} else {
+							cards[i].classList.remove('placed');
+						}
+					}
+				}
+
+				function removeFrom(id) {
+					if (locked === true) {
+						return;
+					}
+					placement[id] = null;
+					renderSlots();
+					markStatements();
+					updateStatus();
+				}
+
+				function renderSlots() {
+					for (var z = 0; z < zones.length; z = z + 1) {
+						var home = zones[z].getAttribute('data-home');
+						var slot = zones[z].querySelector('.slot');
+						slot.innerHTML = '';
+
+						for (var i = 0; i < IDS.length; i = i + 1) {
+							if (placement[IDS[i]] === home) {
+								addChip(slot, IDS[i]);
+							}
+						}
+
+						if (slot.innerHTML === '') {
+							slot.innerHTML = '<span class="empty">Drop statements here</span>';
+						}
+					}
+				}
+
+				function addChip(slot, id) {
+					var chip = document.createElement('div');
+					chip.className = 'chip';
+					chip.setAttribute('role', 'button');
+					chip.setAttribute('tabindex', '0');
+					chip.setAttribute('aria-label', 'Take out: ' + STATEMENTS[id].text);
+					chip.textContent = STATEMENTS[id].text;
+
+					chip.addEventListener('click', function (e) {
+						e.stopPropagation();
+						if (selected) {
+							place(selected, placement[id]);
+						} else {
+							removeFrom(id);
+						}
+					});
+
+					chip.addEventListener('keydown', function (e) {
+						if (e.key === 'Enter' || e.key === ' ') {
+							e.preventDefault();
+							e.stopPropagation();
+							if (selected) {
+								place(selected, placement[id]);
+							} else {
+								removeFrom(id);
+							}
+						}
+					});
+
+					slot.appendChild(chip);
+				}
+
+				function updateStatus() {
+					var n = countPlaced();
+					if (n === 0) {
+						setStatus('Nothing placed yet.');
+					} else if (n < IDS.length) {
+						setStatus(n + ' of ' + IDS.length + ' statements placed.');
+					} else {
+						setStatus('All statements placed. Select "Check my answers", or move any of them.');
+					}
+
+					if (n < IDS.length) {
+						checkBtn.disabled = true;
+					} else {
+						checkBtn.disabled = false;
+					}
+				}
+
+				function select(id) {
+					if (locked === true) {
+						return;
+					}
+					selected = id;
+					markStatements();
+					setStatus('Statement selected. Now choose a home.');
+				}
+
+				function place(id, home) {
+					if (locked === true) {
+						return;
+					}
+					if (STATEMENTS[id] === undefined) {
+						return;
+					}
+					placement[id] = home;
+					selected = null;
+					renderSlots();
+					markStatements();
+					updateStatus();
+				}
+
+				function addStatementCard(id) {
+					var el = document.createElement('div');
+					el.className = 'ex-card statement';
+					el.setAttribute('role', 'button');
+					el.setAttribute('tabindex', '0');
+					el.setAttribute('draggable', 'true');
+					el.setAttribute('data-id', id);
+					el.textContent = STATEMENTS[id].text;
+
+					el.addEventListener('dragstart', function (e) {
+						e.dataTransfer.setData('text/plain', id);
+						e.dataTransfer.effectAllowed = 'move';
+						selected = id;
+					});
+
+					el.addEventListener('click', function () {
+						select(id);
+					});
+
+					el.addEventListener('keydown', function (e) {
+						if (e.key === 'Enter' || e.key === ' ') {
+							e.preventDefault();
+							select(id);
+						}
+					});
+
+					statementRow.appendChild(el);
+				}
+
+				function newRound() {
+					order = shuffle(IDS.slice());
+					placement = {};
+					selected = null;
+					locked = false;
+					passed = false;
+
+					statementRow.innerHTML = '';
+					for (var i = 0; i < order.length; i = i + 1) {
+						addStatementCard(order[i]);
+					}
+
+					renderSlots();
+					markStatements();
+
+					setShown(checkBtn, true);
+					checkBtn.disabled = true;
+					resultBox.hidden = true;
+					resultBox.className = '';
+					setShown(nextLink, false);
+					setShown(retryBtn, false);
+					setStatus('Nothing placed yet.');
+				}
+
+				function addLine(text) {
+					var li = document.createElement('li');
+					li.textContent = text;
+					checklist.appendChild(li);
+				}
+
+				function check() {
+					if (countPlaced() < IDS.length) {
+						return;
+					}
+
+					var score = 0;
+					checklist.innerHTML = '';
+
+					for (var i = 0; i < order.length; i = i + 1) {
+						var id = order[i];
+						var s = STATEMENTS[id];
+
+						if (placement[id] === s.home) {
+							score = score + 1;
+							addLine('Passed: "' + s.text + '" belongs with the ' + HOMES[s.home] + '. ' + s.why);
+						} else {
+							addLine('Not yet: "' + s.text + '" belongs with the ' + HOMES[s.home] + '. ' + s.why);
+						}
+					}
+
+					if (score === IDS.length) {
+						passed = true;
+					} else {
+						passed = false;
+					}
+
+					logAttempt(passed);
+					locked = true;
+
+					if (passed === true) {
+						resultTitle.textContent = 'Nice work. You passed!';
+						summary.textContent = score + ' of ' + IDS.length + ' checks passed.';
+						resultBox.className = 'pass';
+						setShown(nextLink, true);
+						setShown(retryBtn, true);
+					} else {
+						resultTitle.textContent = 'Not this time.';
+						summary.textContent = score + ' of ' + IDS.length + ' checks passed. Fix what did not pass and try again.';
+						resultBox.className = 'fail';
+						setShown(nextLink, false);
+						setShown(retryBtn, true);
+					}
+
+					resultBox.hidden = false;
+					setShown(checkBtn, false);
+					resultTitle.focus();
+				}
+
+				function setUpZone(zone) {
+					var home = zone.getAttribute('data-home');
+
+					function tryPlace() {
+						if (selected) {
+							place(selected, home);
+						} else {
+							setStatus('Select a statement first, then select a home.');
+						}
+					}
+
+					zone.addEventListener('dragover', function (e) {
+						e.preventDefault();
+						zone.classList.add('over');
+					});
+
+					zone.addEventListener('dragleave', function () {
+						zone.classList.remove('over');
+					});
+
+					zone.addEventListener('drop', function (e) {
+						e.preventDefault();
+						zone.classList.remove('over');
+						var droppedId = e.dataTransfer.getData('text/plain');
+						place(droppedId, home);
+					});
+
+					zone.addEventListener('click', tryPlace);
+
+					zone.addEventListener('keydown', function (e) {
+						if (e.key === 'Enter' || e.key === ' ') {
+							e.preventDefault();
+							tryPlace();
+						}
+					});
+				}
+
+				for (var z = 0; z < zones.length; z = z + 1) {
+					setUpZone(zones[z]);
+				}
+
+				document.addEventListener('dragover', function (e) {
+					var edge = 120;
+					var speed = 18;
+					if (e.clientY > window.innerHeight - edge) {
+						window.scrollBy(0, speed);
+					} else if (e.clientY < edge) {
+						window.scrollBy(0, -speed);
+					}
+				});
+
+				checkBtn.addEventListener('click', check);
+				retryBtn.addEventListener('click', newRound);
+				newRound();
+			</script>
+
+	</body>
+</html>
