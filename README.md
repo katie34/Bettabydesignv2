@@ -10,6 +10,6 @@ BEFORE YOU BEGIN
 
 WHEN YOU FINISH
 
-Download your results from the pre-assessment, the post-assessment and the Final Challenge, and email all three files to 'kkhan60@gatech.edu'. These files are how I match your results to your survey answers.
+Download your results from the pre-assessment, the post-assessment and the Final Challenge, and email all three files to '1116kkhan@gmail.com'. These files are how I match your results to your survey answers.
 
-Link to site: https://github.gatech.edu/pages/kkhan60/bettabydesign/
+Link to site: https://katie34.github.io/Bettabydesignv2/
