@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Lesson 4: Décor, Plants and Substrate | Betta By Design</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+		<style>
+			#lessonVideo { display: block; width: 100%; max-width: 960px; height: auto; background: #212931; margin-bottom: 2.5em; }
+			.lesson-step { text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.8em; font-weight: 600; margin-bottom: 0.5em; }
+			#main header p { font-size: 1.6em; line-height: 1.4; }
+			#videoNote { font-size: 1.4em; }
+		</style>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+
+							<!-- Logo -->
+								<a href="../index.html" class="logo">
+									<span class="symbol"><img src="../images/logo.png" alt="" /></span><span class="title">Betta By Design</span>
+								</a>
+
+							<!-- Navigation -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<h2>Menu</h2>
+						<ul>
+							<li><a href="../index.html">Home</a></li>
+							<li><a href="../index.html#how">How it works</a></li>
+							<li><a href="../index.html#lessons">Lessons</a></li>
+							<li><a href="../index.html#study">For participants</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<header>
+								<div class="lesson-step">Lesson 4 &middot; Video 1 of 2</div>
+								<h1>Décor, Plants and Substrate</h1>
+								<p>Choosing the right décor for your tank.</p>
+							</header>
+
+							<video id="lessonVideo" controls preload="metadata">
+								<source src="../Videos/Lesson 4a.mp4" type="video/mp4" />
+								Your browser does not support video.
+							</video>
+
+							<ul class="actions">
+								<li><button id="startExercise" class="button primary" disabled>Start the exercise</button></li>
+								<li><a href="../index.html#lessons" class="button">Back to all lessons</a></li>
+							</ul>
+							<p id="videoNote">The exercise unlocks when the video ends.</p>
+						</div>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<section>
+								<h2>About this project</h2>
+								<p>Betta By Design is a course project prototype. It works best on a computer with an internet connection.</p>
+							</section>
+							<ul class="copyright">
+								<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+			<script>
+				var video = document.getElementById('lessonVideo');
+				var btn = document.getElementById('startExercise');
+				var note = document.getElementById('videoNote');
+				video.addEventListener('ended', function () {
+					btn.disabled = false;
+					note.textContent = 'Start the exercise when you are ready, or rewatch the video.';
+				});
+				btn.addEventListener('click', function () {
+					window.location.href = '../Exercises/exercise4a.html';
+				});
+			</script>
+
+	</body>
+</html>
