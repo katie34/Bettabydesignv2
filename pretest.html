@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Pre-assessment | Betta By Design</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<style>
+            [hidden] {
+	            display: none !important;
+            }
+			.lesson-step {
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				font-size: 0.8em;
+				font-weight: 600;
+				margin-bottom: 0.5em;
+			}
+
+			#main header p {
+				font-size: 1.6em;
+				line-height: 1.4;
+			}
+
+			.panel {
+				max-width: 760px;
+				margin-top: 0;
+				margin-right: 0;
+				margin-bottom: 3em;
+				margin-left: 0;
+			}
+
+			.panel p {
+				font-size: 1.2em;
+				line-height: 1.5;
+			}
+
+			.progress-text {
+				font-size: 1.1em;
+				font-weight: 600;
+				margin-top: 0;
+				margin-right: 0;
+				margin-bottom: 0.5em;
+				margin-left: 0;
+			}
+
+			.progress-track {
+				height: 8px;
+				border-radius: 4px;
+				background-color: #e3e3e3;
+				margin-top: 0;
+				margin-right: 0;
+				margin-bottom: 1.75em;
+				margin-left: 0;
+			}
+
+			.progress-fill {
+				height: 8px;
+				border-radius: 4px;
+				background-color: #212931;
+				width: 0%;
+			}
+
+			.question-text {
+				font-size: 1.5em;
+				line-height: 1.4;
+				font-weight: 600;
+				margin-top: 0;
+				margin-right: 0;
+				margin-bottom: 1em;
+				margin-left: 0;
+			}
+
+			.question-text:focus {
+				outline: none;
+			}
+
+			.reading {
+				display: inline-block;
+				box-sizing: border-box;
+				border-width: 2px;
+				border-style: solid;
+				border-color: #c9c9c9;
+				border-radius: 0.35em;
+				padding-top: 0.5em;
+				padding-right: 1.5em;
+				padding-bottom: 0.5em;
+				padding-left: 1.5em;
+				margin-top: 0;
+				margin-right: 0;
+				margin-bottom: 1.25em;
+				margin-left: 0;
+				text-align: center;
+				background-color: #ffffff;
+			}
+
+			.reading .reading-label {
+				font-size: 0.85em;
+				font-weight: 600;
+				text-transform: uppercase;
+				letter-spacing: 0.08em;
+			}
+
+			.reading .reading-number {
+				font-size: 2em;
+				font-weight: 600;
+				line-height: 1.2;
+			}
+
+			.opt {
+				box-sizing: border-box;
+				display: block;
+				width: 100%;
+				border-width: 2px;
+				border-style: solid;
+				border-color: #c9c9c9;
+				border-radius: 0.35em;
+				padding: 0.9em;
+				margin-top: 0;
+				margin-right: 0;
+				margin-bottom: 0.75em;
+				margin-left: 0;
+				text-align: left;
+				font-size: 1.15em;
+				font-weight: 600;
+				background-color: #ffffff;
+				cursor: pointer;
+			}
+
+			.opt:focus-visible {
+				outline-width: 3px;
+				outline-style: solid;
+				outline-color: #212931;
+				outline-offset: 2px;
+			}
+
+			.opt.idk {
+				font-weight: 400;
+				color: #585858;
+			}
+
+			.opt.selected {
+				border-width: 4px;
+				border-color: #212931;
+				background-color: #f0f0f0;
+				padding: calc(0.9em - 2px);
+			}
+
+			.note {
+				font-size: 0.95em;
+				color: #585858;
+			}
+
+			#done .actions {
+				flex-wrap: wrap;
+			}
+
+			#done .actions li {
+				margin-bottom: 0.5em;
+			}
+		</style>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+
+							<!-- Logo -->
+								<a href="index.html" class="logo">
+									<span class="symbol"><img src="images/logo.png" alt="" /></span><span class="title">Betta By Design</span>
+								</a>
+
+							<!-- Navigation -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<h2>Menu</h2>
+						<ul>
+							<li><a href="index.html">Home</a></li>
+							<li><a href="index.html#how">How it works</a></li>
+							<li><a href="index.html#lessons">Lessons</a></li>
+							<li><a href="index.html#study">For participants</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<header>
+								<div class="lesson-step">Pre-assessment</div>
+								<h1>What do you already know?</h1>
+							</header>
+
+							<noscript><p>This assessment needs JavaScript. Please turn it on in your browser.</p></noscript>
+
+							<div class="panel" id="intro" hidden>
+								<p>This short quiz shows what you already know about caring for a betta. It is not graded, and you will not see a score.</p>
+								<p>You will see 13 questions, one at a time. Choose the answer you think is best. If you do not know, choose "I don't know", because that is a useful answer. You cannot go back to an earlier question, and you can only take this quiz once.</p>
+								<ul class="actions">
+									<li><button id="startBtn" class="button primary">Start</button></li>
+								</ul>
+							</div>
+
+							<div class="panel" id="quiz" hidden>
+								<p class="progress-text" id="progressText" aria-live="polite"></p>
+								<div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+								<div class="question-text" id="questionText" tabindex="-1"></div>
+
+								<div class="reading" id="reading" hidden>
+									<div class="reading-label" id="readingLabel"></div>
+									<div class="reading-number" id="readingNumber"></div>
+								</div>
+
+								<div id="options"></div>
+
+								<ul class="actions">
+									<li><button id="nextBtn" class="button primary" disabled>Next</button></li>
+								</ul>
+								<p class="note">You cannot go back to earlier questions.</p>
+							</div>
+
+							<div class="panel" id="done" hidden>
+								<h2>Thank you!</h2>
+								<p>You finished the pre-assessment. Your answers are saved in this browser, and you will not see a score.</p>
+								<p>Download your results now and keep the file. You will be asked to send it at the end of the course.</p>
+								<ul class="actions">
+									<li><button id="downloadBtn" class="button primary">Download my results</button></li>
+									<li><a href="index.html#lessons" class="button">Go to the lessons</a></li>
+								</ul>
+							</div>
+
+							<ul class="actions">
+								<li><a href="index.html#lessons" class="button">Back to all lessons</a></li>
+							</ul>
+						</div>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<section>
+								<h2>About this project</h2>
+								<p>Betta By Design is a course project prototype. It works best on a computer with an internet connection.</p>
+							</section>
+							<ul class="copyright">
+								<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+			<script>
+				var STORE_KEY = 'bbd_pre';
+				var DONT_KNOW = 'I don\'t know';
+
+				var FORMS = {
+					A: [
+						{
+							lesson: 'L1',
+							question: 'You filled a new tank straight from the tap. What should you add before your betta goes in?',
+							reading: null,
+							options: ['Water conditioner', 'A second filter', 'Fish food']
+						},
+						{
+							lesson: 'L2',
+							question: 'You are choosing a first tank for one betta. Which is the best choice?',
+							reading: null,
+							options: ['10 gallons', '2.5 gallons', '5 gallons']
+						},
+						{
+							lesson: 'L3',
+							question: 'The thermometer in your betta\'s tank shows this. What should you do?',
+							reading: { label: 'Thermometer', value: '71°F' },
+							options: ['Turn the heater up until the water is about 79°F', 'Turn the heater up until the water is about 90°F', 'Leave it, since 71°F is fine']
+						},
+						{
+							lesson: 'L4',
+							question: 'Which is the best decoration for your betta\'s tank?',
+							reading: null,
+							options: ['Driftwood', 'A neon plastic castle', 'A painted craft-store toy']
+						},
+						{
+							lesson: 'L5',
+							question: 'Your tank is 10 gallons. Which filter should you buy?',
+							reading: null,
+							options: ['One made for 10 gallons', 'One made for 55 gallons', 'One made for 2.5 gallons']
+						},
+						{
+							lesson: 'L5',
+							question: 'You set up a tank this morning and the filter and heater are running. A friend offers you a betta tonight. What do you do?',
+							reading: null,
+							options: ['Wait about four weeks before adding the betta', 'Add the betta tonight, since everything is running', 'Wait one day, then add the betta']
+						},
+						{
+							lesson: 'L6',
+							question: 'Your test kit shows this. What does it tell you?',
+							reading: { label: 'Test kit', value: 'pH 8.4' },
+							options: ['The pH is too high', 'The pH is just right', 'The pH is too low']
+						},
+						{
+							lesson: 'L6',
+							question: 'You bring your betta home in a cup. What do you do first?',
+							reading: null,
+							options: ['Float the cup in the tank', 'Pour the betta straight into the tank', 'Add cold tap water to the cup']
+						},
+						{
+							lesson: 'L6',
+							question: 'The cup has floated and you have mixed in some tank water. What is the last step?',
+							reading: null,
+							options: ['Net the betta into the tank and leave the cup water behind', 'Pour the cup, water and all, into the tank', 'Scoop the betta in with your hands']
+						},
+						{
+							lesson: 'L7',
+							question: 'You have a 10-gallon tank with one betta. A friend suggests adding a peaceful fish. What should you do?',
+							reading: null,
+							options: ['Do not add it, because the tank is too small for tank mates', 'Add one peaceful fish', 'Add two peaceful fish']
+						},
+						{
+							lesson: 'L7',
+							question: 'You have a 30-gallon tank with one betta. Which is the best addition?',
+							reading: null,
+							options: ['A kuhli loach, which is peaceful', 'A tiger barb, which is aggressive', 'Another male betta']
+						},
+						{
+							lesson: 'L8',
+							question: 'How much of the water should you change each week?',
+							reading: null,
+							options: ['About 25%', 'About 5%', 'All of it']
+						},
+						{
+							lesson: 'L8',
+							question: 'How often should you feed your betta?',
+							reading: null,
+							options: ['Once or twice a day', 'Five times a day', 'Once a week']
+						}
+					],
+					B: [
+						{
+							lesson: 'L1',
+							question: 'A friend fills a tank from the tap and plans to add the betta right away. What does the water still need?',
+							reading: null,
+							options: ['Water conditioner', 'A thermometer', 'More decorations']
+						},
+						{
+							lesson: 'L2',
+							question: 'You are picking a tank for one betta. Which is the best choice?',
+							reading: null,
+							options: ['20 gallons', '2.5 gallons', '5 gallons']
+						},
+						{
+							lesson: 'L3',
+							question: 'The thermometer in your betta\'s tank shows this. What should you do?',
+							reading: { label: 'Thermometer', value: '88°F' },
+							options: ['Turn the heater down until the water is about 79°F', 'Turn the heater down until the water is about 70°F', 'Leave it, since 88°F is fine']
+						},
+						{
+							lesson: 'L4',
+							question: 'Which is the safest thing to add to the tank?',
+							reading: null,
+							options: ['A smooth rock you checked by running tights over it', 'A ship with hard, sharp edges', 'A painted craft-store figurine']
+						},
+						{
+							lesson: 'L5',
+							question: 'Your tank is 20 gallons. Which filter should you buy?',
+							reading: null,
+							options: ['One made for 20 gallons', 'One made for 75 gallons', 'One made for 5 gallons']
+						},
+						{
+							lesson: 'L5',
+							question: 'A store worker says you can take a betta home today if you add conditioner to a tank you set up this morning. What do you do?',
+							reading: null,
+							options: ['Wait about four weeks before adding the betta', 'Add the betta today', 'Wait a few days, then add the betta']
+						},
+						{
+							lesson: 'L6',
+							question: 'Your test kit shows this. What does it tell you?',
+							reading: { label: 'Test kit', value: 'pH 5.6' },
+							options: ['The pH is too low', 'The pH is just right', 'The pH is too high']
+						},
+						{
+							lesson: 'L6',
+							question: 'Your betta arrives in a sealed bag. What do you do first when you get home?',
+							reading: null,
+							options: ['Float the bag in the tank', 'Open the bag and pour everything into the tank', 'Feed your betta first']
+						},
+						{
+							lesson: 'L6',
+							question: 'Your betta has finished adjusting in its cup. How do you put it in the tank?',
+							reading: null,
+							options: ['Net it in and leave the cup water behind', 'Pour the cup, water and all, into the tank', 'Lift it in bare-handed']
+						},
+						{
+							lesson: 'L7',
+							question: 'You have a 5-gallon tank with one betta. A store worker suggests a peaceful tank mate. What should you do?',
+							reading: null,
+							options: ['Do not add it, because the tank is too small for tank mates', 'Add one peaceful fish', 'Add two peaceful fish']
+						},
+						{
+							lesson: 'L7',
+							question: 'You have a 40-gallon tank with one betta. Which is the safest addition?',
+							reading: null,
+							options: ['A corydoras, which is peaceful', 'A cichlid, which is aggressive', 'Another male betta']
+						},
+						{
+							lesson: 'L8',
+							question: 'Your tank water is getting dirty. How much do you change in your weekly clean?',
+							reading: null,
+							options: ['About 20%', 'About 50%', 'All of it']
+						},
+						{
+							lesson: 'L8',
+							question: 'You are making a feeding schedule for a new betta. Which is best?',
+							reading: null,
+							options: ['Once or twice a day', 'Every hour', 'Every other week']
+						}
+					]
+				};
+
+				var state;
+				var selected = '';
+
+				var introEl = document.getElementById('intro');
+				var quizEl = document.getElementById('quiz');
+				var doneEl = document.getElementById('done');
+				var startBtn = document.getElementById('startBtn');
+				var nextBtn = document.getElementById('nextBtn');
+				var downloadBtn = document.getElementById('downloadBtn');
+				var progressText = document.getElementById('progressText');
+				var progressFill = document.getElementById('progressFill');
+				var questionText = document.getElementById('questionText');
+				var readingEl = document.getElementById('reading');
+				var readingLabel = document.getElementById('readingLabel');
+				var readingNumber = document.getElementById('readingNumber');
+				var optionsEl = document.getElementById('options');
+
+				function shuffle(a) {
+					for (var i = a.length - 1; i > 0; i = i - 1) {
+						var j = Math.floor(Math.random() * (i + 1));
+						var t = a[i];
+						a[i] = a[j];
+						a[j] = t;
+					}
+					return a;
+				}
+
+				function setShown(el, shown) {
+					if (shown === true) {
+						el.hidden = false;
+						el.style.removeProperty('display');
+					} else {
+						el.hidden = true;
+						el.style.setProperty('display', 'none', 'important');
+					}
+				}
+
+				function newState() {
+					var form;
+					if (Math.random() < 0.5) {
+						form = 'A';
+					} else {
+						form = 'B';
+					}
+
+					return {
+						form: form,
+						total: FORMS[form].length,
+						startedAt: null,
+						finishedAt: null,
+						finished: false,
+						score: null,
+						dontKnowCount: null,
+						answers: []
+					};
+				}
+
+				function loadState() {
+					var d = null;
+					try {
+						var saved = localStorage.getItem(STORE_KEY);
+						if (saved !== null && saved !== '') {
+							d = JSON.parse(saved);
+						}
+					} catch (e) {
+						d = null;
+					}
+
+					if (d === null || (d.form !== 'A' && d.form !== 'B')) {
+						d = newState();
+					}
+					return d;
+				}
+
+				function saveState() {
+					try {
+						localStorage.setItem(STORE_KEY, JSON.stringify(state));
+					} catch (e) {
+					}
+				}
+
+				function showIntro() {
+					setShown(introEl, true);
+					setShown(quizEl, false);
+					setShown(doneEl, false);
+				}
+
+				function showDone() {
+					setShown(introEl, false);
+					setShown(quizEl, false);
+					setShown(doneEl, true);
+				}
+
+				function markSelected() {
+					var cards = optionsEl.querySelectorAll('.opt');
+					for (var i = 0; i < cards.length; i = i + 1) {
+						if (cards[i].getAttribute('data-text') === selected) {
+							cards[i].classList.add('selected');
+							cards[i].setAttribute('aria-pressed', 'true');
+						} else {
+							cards[i].classList.remove('selected');
+							cards[i].setAttribute('aria-pressed', 'false');
+						}
+					}
+
+					if (selected === '') {
+						nextBtn.disabled = true;
+					} else {
+						nextBtn.disabled = false;
+					}
+				}
+
+				function pick(text) {
+					selected = text;
+					markSelected();
+				}
+
+				function addOption(text) {
+					var el = document.createElement('div');
+					el.className = 'opt';
+					el.setAttribute('role', 'button');
+					el.setAttribute('tabindex', '0');
+					el.setAttribute('aria-pressed', 'false');
+					el.setAttribute('data-text', text);
+					el.textContent = text;
+
+					if (text === DONT_KNOW) {
+						el.classList.add('idk');
+					}
+
+					el.addEventListener('click', function () {
+						pick(text);
+					});
+
+					el.addEventListener('keydown', function (e) {
+						if (e.key === 'Enter' || e.key === ' ') {
+							e.preventDefault();
+							pick(text);
+						}
+					});
+
+					optionsEl.appendChild(el);
+				}
+
+				function showQuestion() {
+					var items = FORMS[state.form];
+					var index = state.answers.length;
+					var item = items[index];
+
+					setShown(introEl, false);
+					setShown(quizEl, true);
+					setShown(doneEl, false);
+
+					progressText.textContent = 'Question ' + (index + 1) + ' of ' + items.length;
+					progressFill.style.width = Math.round((index / items.length) * 100) + '%';
+					questionText.textContent = item.question;
+
+					if (item.reading === null) {
+						readingEl.hidden = true;
+					} else {
+						readingEl.hidden = false;
+						readingLabel.textContent = item.reading.label;
+						readingNumber.textContent = item.reading.value;
+					}
+
+					selected = '';
+					optionsEl.innerHTML = '';
+					var mixed = shuffle(item.options.slice());
+					for (var i = 0; i < mixed.length; i = i + 1) {
+						addOption(mixed[i]);
+					}
+					addOption(DONT_KNOW);
+
+					if (index === items.length - 1) {
+						nextBtn.textContent = 'Finish';
+					} else {
+						nextBtn.textContent = 'Next';
+					}
+
+					markSelected();
+					questionText.focus();
+				}
+
+				function finish() {
+					var score = 0;
+					var dontKnow = 0;
+					for (var i = 0; i < state.answers.length; i = i + 1) {
+						if (state.answers[i].correct === true) {
+							score = score + 1;
+						}
+						if (state.answers[i].dontKnow === true) {
+							dontKnow = dontKnow + 1;
+						}
+					}
+
+					state.score = score;
+					state.dontKnowCount = dontKnow;
+					state.finished = true;
+					state.finishedAt = new Date().toISOString();
+					saveState();
+					showDone();
+				}
+
+				function nextQuestion() {
+					if (selected === '') {
+						return;
+					}
+
+					var items = FORMS[state.form];
+					var index = state.answers.length;
+					var item = items[index];
+
+					var isRight = false;
+					if (selected === item.options[0]) {
+						isRight = true;
+					}
+
+					var isDontKnow = false;
+					if (selected === DONT_KNOW) {
+						isDontKnow = true;
+					}
+
+					state.answers.push({
+						item: index + 1,
+						lesson: item.lesson,
+						question: item.question,
+						chosen: selected,
+						correct: isRight,
+						dontKnow: isDontKnow
+					});
+
+					if (state.answers.length === items.length) {
+						finish();
+					} else {
+						saveState();
+						showQuestion();
+					}
+				}
+
+				function startQuiz() {
+					state.startedAt = new Date().toISOString();
+					saveState();
+					showQuestion();
+				}
+
+				function downloadResults() {
+					var file = {
+						project: 'Betta By Design',
+						part: 'Pre-assessment',
+						downloadedAt: new Date().toISOString(),
+						results: state
+					};
+
+					var text = JSON.stringify(file, null, 2);
+					var blob = new Blob([text], { type: 'application/json' });
+					var url = URL.createObjectURL(blob);
+
+					var link = document.createElement('a');
+					link.setAttribute('href', url);
+					link.setAttribute('download', 'bbd-pre-assessment.json');
+					document.body.appendChild(link);
+					link.click();
+					document.body.removeChild(link);
+
+					setTimeout(function () {
+						URL.revokeObjectURL(url);
+					}, 1000);
+				}
+
+				startBtn.addEventListener('click', startQuiz);
+				nextBtn.addEventListener('click', nextQuestion);
+				downloadBtn.addEventListener('click', downloadResults);
+
+				state = loadState();
+
+				if (state.finished === true) {
+					showDone();
+				} else if (state.answers.length > 0) {
+					showQuestion();
+				} else {
+					saveState();
+					showIntro();
+				}
+			</script>
+
+	</body>
+</html>

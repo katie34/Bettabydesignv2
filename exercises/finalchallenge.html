@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Final Challenge | Betta By Design</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+		<style>
+            [hidden] {
+	            display: none !important;
+            }
+			.lesson-step {
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				font-size: 0.8em;
+				font-weight: 600;
+				margin-bottom: 0.5em;
+			}
+
+			.ex-label {
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				font-size: 0.8em;
+				font-weight: 600;
+				margin-top: 2em;
+				margin-right: 0;
+				margin-bottom: 0.5em;
+				margin-left: 0;
+			}
+
+			.ex-card {
+				box-sizing: border-box;
+				border-width: 2px;
+				border-style: solid;
+				border-color: #c9c9c9;
+				border-radius: 0.35em;
+				padding: 0.75em;
+				text-align: center;
+				background-color: #ffffff;
+			}
+
+			.ex-card:focus-visible {
+				outline-width: 3px;
+				outline-style: solid;
+				outline-color: #212931;
+				outline-offset: 2px;
+			}
+
+			.tank-box {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 1.25em;
+				align-items: stretch;
+				margin-top: 0;
+				margin-right: 0;
+				margin-bottom: 1em;
+				margin-left: 0;
+			}
+
+			.tank-card {
+				flex-grow: 0;
+				flex-shrink: 0;
+				flex-basis: 200px;
+			}
+
+			.tank-card .pic {
+				height: 130px;
+			}
+
+			.tank-card .size {
+				margin-top: 0.5em;
+				font-size: 1.3em;
+				font-weight: 600;
+			}
+
+			.zone {
+				flex-grow: 1;
+				flex-shrink: 1;
+				flex-basis: 300px;
+				box-sizing: border-box;
+				border-width: 3px;
+				border-style: dashed;
+				border-color: #585858;
+				border-radius: 0.35em;
+				padding: 0.75em;
+				min-height: 9em;
+				background-color: #fafafa;
+			}
+
+			.zone.over {
+				background-color: #e8e8e8;
+				border-color: #212931;
+			}
+
+			.zone .zone-title {
+				font-weight: 600;
+				margin-top: 0;
+				margin-right: 0;
+				margin-bottom: 0.5em;
+				margin-left: 0;
+			}
+
+			.zone .empty-note {
+				margin: 0;
+				color: #585858;
+			}
+
+			.card-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+				gap: 0.75em;
+			}
+
+			.tray {
+				min-height: 6em;
+				border-width: 2px;
+				border-style: solid;
+				border-color: transparent;
+				border-radius: 0.35em;
+				padding: 0.25em;
+			}
+
+			.tray.over {
+				background-color: #e8e8e8;
+				border-color: #212931;
+			}
+
+			.fc-card {
+				cursor: grab;
+				padding: 0.5em;
+				user-select: none;
+			}
+
+			.fc-card.dragging {
+				opacity: 0.4;
+			}
+
+			.fc-card .pic {
+				height: 90px;
+			}
+
+			.pic {
+				border-radius: 0.25em;
+				background-color: #e3e3e3;
+				overflow: hidden;
+			}
+
+			.pic img {
+				display: block;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+
+			.pic.noimg img {
+				display: none;
+			}
+
+			.fc-card .words {
+				margin-top: 0.4em;
+				font-weight: 600;
+				line-height: 1.25;
+			}
+
+			.fc-card.textonly {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				min-height: 120px;
+			}
+
+			.fc-card.textonly .words {
+				margin-top: 0;
+				font-size: 1.1em;
+			}
+
+			.slider-box {
+				border-width: 2px;
+				border-style: solid;
+				border-color: #c9c9c9;
+				border-radius: 0.35em;
+				padding-top: 0.25em;
+				padding-right: 1.25em;
+				padding-bottom: 0.25em;
+				padding-left: 1.25em;
+				margin-top: 0;
+				margin-right: 0;
+				margin-bottom: 1em;
+				margin-left: 0;
+				background-color: #ffffff;
+			}
+
+			.slider-head {
+				display: flex;
+				justify-content: space-between;
+				align-items: baseline;
+				margin-top: 1em;
+			}
+
+			.slider-label {
+				font-size: 1.2em;
+				font-weight: 600;
+			}
+
+			.slider-value {
+				font-size: 1.3em;
+				font-weight: 600;
+			}
+
+			.fc-slider {
+				-webkit-appearance: none;
+				appearance: none;
+				display: block;
+				width: 100%;
+				height: 8px;
+				margin-top: 1em;
+				margin-right: 0;
+				margin-bottom: 0.5em;
+				margin-left: 0;
+				border-radius: 4px;
+				background-color: #212931;
+				cursor: pointer;
+			}
+
+			.fc-slider::-webkit-slider-thumb {
+				-webkit-appearance: none;
+				appearance: none;
+				width: 28px;
+				height: 28px;
+				border-radius: 50%;
+				border-width: 3px;
+				border-style: solid;
+				border-color: #ffffff;
+				background-color: #212931;
+				box-shadow: 0 0 0 2px #212931;
+			}
+
+			.fc-slider::-moz-range-track {
+				height: 8px;
+				border-radius: 4px;
+				background-color: #212931;
+			}
+
+			.fc-slider::-moz-range-thumb {
+				width: 22px;
+				height: 22px;
+				border-radius: 50%;
+				border-width: 3px;
+				border-style: solid;
+				border-color: #ffffff;
+				background-color: #212931;
+				box-shadow: 0 0 0 2px #212931;
+			}
+
+			.fc-slider:focus-visible {
+				outline-width: 3px;
+				outline-style: solid;
+				outline-color: #212931;
+				outline-offset: 6px;
+			}
+
+			.fc-slider:disabled {
+				cursor: default;
+				opacity: 0.6;
+			}
+
+			.ticks {
+				position: relative;
+				height: 2.5em;
+				margin-top: 0;
+				margin-right: 0;
+				margin-bottom: 0.5em;
+				margin-left: 0;
+			}
+
+			.ticks .ticks-inner {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 14px;
+				right: 14px;
+			}
+
+			.ticks .tick {
+				position: absolute;
+				top: 0;
+				transform: translateX(-50%);
+				padding-top: 0.6em;
+				border-top-width: 2px;
+				border-top-style: solid;
+				border-top-color: #212931;
+				font-weight: 600;
+				white-space: nowrap;
+				text-align: center;
+			}
+
+			#result {
+				border-width: 2px;
+				border-style: solid;
+				border-color: #585858;
+				border-radius: 0.35em;
+				padding: 1.25em;
+				margin-top: 1.5em;
+				margin-right: 0;
+				margin-bottom: 0;
+				margin-left: 0;
+				box-sizing: border-box;
+				text-align: left;
+			}
+
+			#result h2 {
+				font-size: 1.4em;
+			}
+
+			#result.pass {
+				background-color: #e3f4e6;
+				border-color: #2e7d46;
+			}
+
+			#result.fail {
+				background-color: #fbe4e4;
+				border-color: #b3261e;
+			}
+
+            #result .actions {
+	            flex-wrap: wrap;
+            }
+
+            #result .actions li {
+	            margin-bottom: 0.5em;
+            }
+
+			#main header p {
+				font-size: 1.6em;
+				line-height: 1.4;
+			}
+
+			#status {
+				font-size: 1.4em;
+			}
+
+			.save-note {
+				margin-top: 0.5em;
+				margin-right: 0;
+				margin-bottom: 0;
+				margin-left: 0;
+				font-size: 0.95em;
+			}
+
+			.ex-layout {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 2.5em;
+				align-items: flex-start;
+				margin-bottom: 3em;
+			}
+
+			.ex-stage {
+				flex-grow: 3;
+				flex-shrink: 1;
+				flex-basis: 460px;
+				min-width: 0;
+			}
+
+			.ex-side {
+				flex-grow: 2;
+				flex-shrink: 1;
+				flex-basis: 260px;
+				min-width: 0;
+				position: sticky;
+				top: 1.5em;
+			}
+		</style>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+
+							<!-- Logo -->
+								<a href="../index.html" class="logo">
+									<span class="symbol"><img src="../images/logo.png" alt="" /></span><span class="title">Betta By Design</span>
+								</a>
+
+							<!-- Navigation -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<h2>Menu</h2>
+						<ul>
+							<li><a href="../index.html">Home</a></li>
+							<li><a href="../index.html#how">How it works</a></li>
+							<li><a href="../index.html#lessons">Lessons</a></li>
+							<li><a href="../index.html#study">For participants</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<header>
+								<div class="lesson-step">Final Challenge</div>
+								<h1>Build the best setup for your betta</h1>
+								<p id="prompt">Your betta lives in the tank below. Drag or click the cards your betta needs, set the water sliders, and leave out anything that does not belong. You need to get everything right to pass.</p>
+							</header>
+
+							<noscript><p>This challenge needs JavaScript. Please turn it on in your browser.</p></noscript>
+
+							<div class="ex-layout">
+								<div class="ex-stage">
+
+									<div class="ex-label">Your betta's tank</div>
+									<div class="tank-box">
+										<div class="ex-card tank-card">
+											<div class="pic" id="tankPic"><img src="../images/bettaintank.png" alt="a tank with a betta in it" /></div>
+											<div class="size" id="tankSize"></div>
+										</div>
+										<div class="zone" id="setup" aria-label="My betta's setup and care">
+											<p class="zone-title">My betta's setup and care</p>
+											<div class="card-grid" id="setupCards"></div>
+											<p class="empty-note" id="emptyNote">Drag cards here, or select a card to move it here. Select a card in here to move it back.</p>
+										</div>
+									</div>
+
+									<div class="ex-label">Water settings</div>
+									<div class="slider-box">
+										<div class="slider-head">
+											<label class="slider-label" for="sTemp">Water temperature</label>
+											<span class="slider-value" id="oTemp"></span>
+										</div>
+										<input type="range" class="fc-slider" id="sTemp" min="60" max="100" step="1" value="70" />
+										<div class="ticks" aria-hidden="true">
+											<div class="ticks-inner">
+												<div class="tick" style="left: 0%;">60&deg;F</div>
+												<div class="tick" style="left: 100%;">100&deg;F</div>
+											</div>
+										</div>
+
+										<div class="slider-head">
+											<label class="slider-label" for="sPh">pH</label>
+											<span class="slider-value" id="oPh"></span>
+										</div>
+										<input type="range" class="fc-slider" id="sPh" min="50" max="90" step="1" value="70" />
+										<div class="ticks" aria-hidden="true">
+											<div class="ticks-inner">
+												<div class="tick" style="left: 0%;">5.0</div>
+												<div class="tick" style="left: 100%;">9.0</div>
+											</div>
+										</div>
+
+										<div class="slider-head">
+											<label class="slider-label" for="sWater">Weekly water change</label>
+											<span class="slider-value" id="oWater"></span>
+										</div>
+										<input type="range" class="fc-slider" id="sWater" min="0" max="100" step="1" value="50" />
+										<div class="ticks" aria-hidden="true">
+											<div class="ticks-inner">
+												<div class="tick" style="left: 0%;">0</div>
+												<div class="tick" style="left: 100%;">All</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="ex-label">Cards to choose from</div>
+									<div class="tray" id="tray" aria-label="Cards to choose from">
+										<div class="card-grid" id="trayCards"></div>
+									</div>
+
+									<div id="result" hidden>
+										<h2 id="resultTitle" tabindex="-1"></h2>
+										<p id="summary"></p>
+										<ul class="actions">
+											<li><a id="nextLink" href="../posttest.html" class="button primary" hidden>Continue to the post-assessment</a></li>
+											<li><button id="retryBtn" class="button" hidden>Try again</button></li>
+											<li><button id="downloadBtn" class="button" hidden>Download my results</button></li>
+										</ul>
+										<p class="save-note" id="saveNote" hidden>Keep the file you download. You will be asked to send it at the end of the course.</p>
+									</div>
+								</div>
+
+								<aside class="ex-side">
+									<p id="status" aria-live="polite">Nothing in your setup yet.</p>
+
+									<ul class="actions">
+										<li><button id="checkBtn" class="button primary" disabled>Check my answers</button></li>
+									</ul>
+								</aside>
+
+							</div>
+
+							<ul class="actions">
+								<li><a href="../index.html#lessons" class="button">Back to all lessons</a></li>
+							</ul>
+						</div>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<section>
+								<h2>About this project</h2>
+								<p>Betta By Design is a course project prototype. It works best on a computer with an internet connection.</p>
+							</section>
+							<ul class="copyright">
+								<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+			<script>
+				var STORE_KEY = 'bbd_final';
+				var CARD_TOTAL = 20;
+				var TANK_SIZES = [5, 10, 20, 30, 40];
+				var MIN_TANKMATE_GALLONS = 20;
+
+				var TEMP_LOW = 76;
+				var TEMP_HIGH = 82;
+				var PH_LOW = 65;
+				var PH_HIGH = 75;
+				var WATER_LOW = 20;
+				var WATER_HIGH = 30;
+
+				var GROUP_NAMES = ['heater', 'filter', 'substrate', 'decor', 'fish', 'food', 'often'];
+
+				var GROUP_MODE = {
+					heater: 'all',
+					filter: 'all',
+					substrate: 'one',
+					decor: 'one',
+					fish: 'none',
+					food: 'all',
+					often: 'all'
+				};
+
+				var BASE_CARDS = [
+					{ id: 'gravel', group: 'substrate', text: 'Smooth gravel', img: '../images/gravel.jpeg', good: true, peaceful: false },
+					{ id: 'sand', group: 'substrate', text: 'Smooth sand', img: '../images/sand.jpeg', good: true, peaceful: false },
+					{ id: 'yarddirt', group: 'substrate', text: 'Sand from a yard', img: '../images/yarddirt.jpeg', good: false, peaceful: false },
+
+					{ id: 'driftwood', group: 'decor', text: 'Driftwood', img: '../images/driftwood.jpeg', good: true, peaceful: false },
+					{ id: 'rock', group: 'decor', text: 'Aquatic rock', img: '../images/rock.jpeg', good: true, peaceful: false },
+					{ id: 'silk', group: 'decor', text: 'Silk plant', img: '../images/anubias.jpeg', good: true, peaceful: false },
+					{ id: 'softplastic', group: 'decor', text: 'Soft plastic plant', img: '../images/softplastic.jpeg', good: true, peaceful: false },
+					{ id: 'spiky', group: 'decor', text: 'Sharp plastic plant', img: '../images/spikyplant.png', good: false, peaceful: false },
+					{ id: 'statue', group: 'decor', text: 'Painted statue', img: '../images/statue.jpeg', good: false, peaceful: false },
+					{ id: 'pineapple', group: 'decor', text: 'Pineapple decoration', img: '../images/pineapple.jpeg', good: false, peaceful: false },
+					{ id: 'castle', group: 'decor', text: 'Castle decoration', img: '../images/castle.jpeg', good: false, peaceful: false },
+					{ id: 'ship', group: 'decor', text: 'Ship decoration', img: '../images/ship.jpeg', good: false, peaceful: false },
+
+					{ id: 'cichlid', group: 'fish', text: 'Aggressive fish', img: '../images/ciclid.jpeg', good: false, peaceful: false },
+					{ id: 'tigerbarb', group: 'fish', text: 'Aggressive fish', img: '../images/tigerbard.jpeg', good: false, peaceful: false },
+					{ id: 'zebradanio', group: 'fish', text: 'Fin-nipping fish', img: '../images/zebradanio.jpeg', good: false, peaceful: false },
+					{ id: 'secondbetta', group: 'fish', text: 'Betta', img: '../images/malebetta.jpg', good: false, peaceful: false },
+					{ id: 'corydoras', group: 'fish', text: 'Peaceful fish', img: '../images/corydora.jpeg', good: false, peaceful: true },
+					{ id: 'kuhli', group: 'fish', text: 'Peaceful fish', img: '../images/kuhliloach.jpeg', good: false, peaceful: true },
+					{ id: 'embertetra', group: 'fish', text: 'Peaceful fish', img: '../images/embertetra.jpeg', good: false, peaceful: true },
+
+					{ id: 'pellets', group: 'food', text: 'Feed betta pellets', img: '../images/bettapellets.jpeg', good: true, peaceful: false },
+					{ id: 'genericfood', group: 'food', text: 'Feed tropical fish food', img: '../images/genericfood.jpeg', good: false, peaceful: false },
+					{ id: 'crickets', group: 'food', text: 'Feed live crickets', img: '../images/cricket.jpeg', good: false, peaceful: false },
+
+					{ id: 'daily', group: 'often', text: 'Feed once or twice a day', img: '', good: true, peaceful: false },
+					{ id: 'fivetimes', group: 'often', text: 'Feed five times a day', img: '', good: false, peaceful: false },
+					{ id: 'weekly', group: 'often', text: 'Feed once a week', img: '', good: false, peaceful: false }
+				];
+
+				var tankGallons;
+				var drawn;
+				var chosenGroups;
+				var placed;
+				var locked;
+				var passed = false;
+				var dragId = '';
+				var sliderStart;
+
+				var tankSizeEl = document.getElementById('tankSize');
+				var tankPicEl = document.getElementById('tankPic');
+				var setupEl = document.getElementById('setup');
+				var setupCardsEl = document.getElementById('setupCards');
+				var emptyNoteEl = document.getElementById('emptyNote');
+				var trayEl = document.getElementById('tray');
+				var trayCardsEl = document.getElementById('trayCards');
+				var sTemp = document.getElementById('sTemp');
+				var sPh = document.getElementById('sPh');
+				var sWater = document.getElementById('sWater');
+				var oTemp = document.getElementById('oTemp');
+				var oPh = document.getElementById('oPh');
+				var oWater = document.getElementById('oWater');
+				var statusEl = document.getElementById('status');
+				var checkBtn = document.getElementById('checkBtn');
+				var resultBox = document.getElementById('result');
+				var resultTitle = document.getElementById('resultTitle');
+				var summary = document.getElementById('summary');
+				var nextLink = document.getElementById('nextLink');
+				var retryBtn = document.getElementById('retryBtn');
+				var downloadBtn = document.getElementById('downloadBtn');
+				var saveNote = document.getElementById('saveNote');
+
+				function shuffle(a) {
+					for (var i = a.length - 1; i > 0; i = i - 1) {
+						var j = Math.floor(Math.random() * (i + 1));
+						var t = a[i];
+						a[i] = a[j];
+						a[j] = t;
+					}
+					return a;
+				}
+
+				function pickRandom(list) {
+					return list[Math.floor(Math.random() * list.length)];
+				}
+
+				function setStatus(text) {
+					statusEl.textContent = text;
+				}
+
+				function setShown(el, shown) {
+					if (shown === true) {
+						el.hidden = false;
+						el.style.removeProperty('display');
+					} else {
+						el.hidden = true;
+						el.style.setProperty('display', 'none', 'important');
+					}
+				}
+
+				function showPh(value) {
+					return Math.floor(value / 10) + '.' + (value % 10);
+				}
+
+				function showReadouts() {
+					oTemp.textContent = sTemp.value + '°F';
+					oPh.textContent = showPh(parseInt(sPh.value, 10));
+					oWater.textContent = sWater.value + '%';
+				}
+
+				function randomStart(lowMin, lowSpan, highMin, highSpan) {
+					if (Math.random() < 0.5) {
+						return lowMin + Math.floor(Math.random() * lowSpan);
+					} else {
+						return highMin + Math.floor(Math.random() * highSpan);
+					}
+				}
+
+				function buildPool(tank) {
+					var list = [];
+
+					for (var i = 0; i < BASE_CARDS.length; i = i + 1) {
+						var base = BASE_CARDS[i];
+						var good = base.good;
+
+						if (base.peaceful === true) {
+							if (tank >= MIN_TANKMATE_GALLONS) {
+								good = true;
+							} else {
+								good = false;
+							}
+						}
+
+						list.push({
+							id: base.id,
+							group: base.group,
+							text: base.text,
+							img: base.img,
+							good: good
+						});
+					}
+
+					for (var k = 0; k < TANK_SIZES.length; k = k + 1) {
+						var size = TANK_SIZES[k];
+						var fits = false;
+						if (size === tank) {
+							fits = true;
+						}
+
+						list.push({
+							id: 'heater' + size,
+							group: 'heater',
+							text: 'Heater for ' + size + ' gallons',
+							img: '../images/waterheater.jpg',
+							good: fits
+						});
+
+						list.push({
+							id: 'filter' + size,
+							group: 'filter',
+							text: 'Filter for ' + size + ' gallons',
+							img: '../images/waterfilter.jpg',
+							good: fits
+						});
+					}
+
+					return list;
+				}
+
+				function cardsOf(list, group, wantGood) {
+					var found = [];
+					for (var i = 0; i < list.length; i = i + 1) {
+						if (list[i].group === group && list[i].good === wantGood) {
+							found.push(list[i]);
+						}
+					}
+					return found;
+				}
+
+				function hasCard(list, card) {
+					for (var i = 0; i < list.length; i = i + 1) {
+						if (list[i].id === card.id) {
+							return true;
+						}
+					}
+					return false;
+				}
+
+				function chooseGroups(all) {
+					var tries = 0;
+
+					while (tries < 50) {
+						var mixed = shuffle(GROUP_NAMES.slice());
+						var howMany = 5 + Math.floor(Math.random() * 3);
+						var pick = mixed.slice(0, howMany);
+
+						var capacity = 0;
+						for (var i = 0; i < all.length; i = i + 1) {
+							if (pick.indexOf(all[i].group) !== -1) {
+								capacity = capacity + 1;
+							}
+						}
+
+						if (capacity >= CARD_TOTAL) {
+							return pick;
+						}
+
+						tries = tries + 1;
+					}
+
+					return GROUP_NAMES.slice();
+				}
+
+				function drawCards(tank) {
+					var all = buildPool(tank);
+					var groups = chooseGroups(all);
+					var picked = [];
+
+					for (var g = 0; g < groups.length; g = g + 1) {
+						var name = groups[g];
+						var goods = cardsOf(all, name, true);
+						var bads = cardsOf(all, name, false);
+
+						if (name !== 'fish' && goods.length > 0) {
+							picked.push(pickRandom(goods));
+						}
+
+						if (bads.length > 0) {
+							picked.push(pickRandom(bads));
+						}
+					}
+
+					var rest = [];
+					for (var i = 0; i < all.length; i = i + 1) {
+						if (groups.indexOf(all[i].group) !== -1) {
+							if (hasCard(picked, all[i]) === false) {
+								rest.push(all[i]);
+							}
+						}
+					}
+					shuffle(rest);
+
+					var r = 0;
+					while (picked.length < CARD_TOTAL && r < rest.length) {
+						picked.push(rest[r]);
+						r = r + 1;
+					}
+
+					chosenGroups = groups;
+					return shuffle(picked);
+				}
+
+				function countPlaced() {
+					var n = 0;
+					for (var i = 0; i < drawn.length; i = i + 1) {
+						if (placed[drawn[i].id] === true) {
+							n = n + 1;
+						}
+					}
+					return n;
+				}
+
+				function updateStatus() {
+					var n = countPlaced();
+					if (n === 0) {
+						setStatus('Nothing in your setup yet.');
+						checkBtn.disabled = true;
+					} else {
+						setStatus('Cards in your setup: ' + n + ' of ' + drawn.length + '.');
+						checkBtn.disabled = false;
+					}
+				}
+
+				function focusCard(id) {
+					var cards = document.querySelectorAll('.fc-card');
+					for (var i = 0; i < cards.length; i = i + 1) {
+						if (cards[i].getAttribute('data-id') === id) {
+							cards[i].focus({ preventScroll: true});
+						}
+					}
+				}
+
+				function moveCard(id, toSetup) {
+					if (locked === true) {
+						return;
+					}
+
+					placed[id] = toSetup;
+					renderCards();
+					updateStatus();
+					focusCard(id);
+				}
+
+				function makeCard(card) {
+					var el = document.createElement('div');
+					el.className = 'ex-card fc-card';
+					el.setAttribute('data-id', card.id);
+					el.setAttribute('role', 'button');
+					el.setAttribute('tabindex', '0');
+					el.setAttribute('draggable', 'true');
+					el.setAttribute('aria-label', card.text);
+
+					if (card.img !== '') {
+						var pic = document.createElement('div');
+						pic.className = 'pic';
+						var img = document.createElement('img');
+						img.setAttribute('src', card.img);
+						img.setAttribute('alt', '');
+						img.addEventListener('error', function () {
+							pic.classList.add('noimg');
+						});
+						pic.appendChild(img);
+						el.appendChild(pic);
+					} else {
+						el.classList.add('textonly');
+					}
+
+					var words = document.createElement('div');
+					words.className = 'words';
+					words.textContent = card.text;
+					el.appendChild(words);
+
+					el.addEventListener('dragstart', function (e) {
+						if (locked === true) {
+							e.preventDefault();
+							return;
+						}
+						dragId = card.id;
+						e.dataTransfer.setData('text/plain', card.id);
+						e.dataTransfer.effectAllowed = 'move';
+						el.classList.add('dragging');
+					});
+
+					el.addEventListener('dragend', function () {
+						dragId = '';
+						el.classList.remove('dragging');
+						setupEl.classList.remove('over');
+						trayEl.classList.remove('over');
+					});
+
+					el.addEventListener('click', function () {
+						if (placed[card.id] === true) {
+							moveCard(card.id, false);
+						} else {
+							moveCard(card.id, true);
+						}
+					});
+
+					el.addEventListener('keydown', function (e) {
+						if (e.key === 'Enter' || e.key === ' ') {
+							e.preventDefault();
+							if (placed[card.id] === true) {
+								moveCard(card.id, false);
+							} else {
+								moveCard(card.id, true);
+							}
+						}
+					});
+
+					return el;
+				}
+
+				function renderCards() {
+					setupCardsEl.innerHTML = '';
+					trayCardsEl.innerHTML = '';
+					var inSetup = 0;
+
+					for (var i = 0; i < drawn.length; i = i + 1) {
+						var el = makeCard(drawn[i]);
+						if (placed[drawn[i].id] === true) {
+							setupCardsEl.appendChild(el);
+							inSetup = inSetup + 1;
+						} else {
+							trayCardsEl.appendChild(el);
+						}
+					}
+
+					setShown(emptyNoteEl, inSetup === 0);
+				}
+
+				function wireZone(zone, toSetup) {
+					zone.addEventListener('dragover', function (e) {
+						if (locked === true || dragId === '') {
+							return;
+						}
+						e.preventDefault();
+						e.dataTransfer.dropEffect = 'move';
+						zone.classList.add('over');
+					});
+
+					zone.addEventListener('dragleave', function (e) {
+						if (zone.contains(e.relatedTarget) === false) {
+							zone.classList.remove('over');
+						}
+					});
+
+					zone.addEventListener('drop', function (e) {
+						e.preventDefault();
+						zone.classList.remove('over');
+						if (locked === true || dragId === '') {
+							return;
+						}
+						var id = dragId;
+						dragId = '';
+						moveCard(id, toSetup);
+					});
+				}
+
+				function autoScroll(e) {
+					if (dragId === '') {
+						return;
+					}
+					if (e.clientY < 90) {
+						window.scrollBy(0, -20);
+					} else if (e.clientY > window.innerHeight - 90) {
+						window.scrollBy(0, 20);
+					}
+				}
+
+				function setSliders(t, p, w) {
+					sTemp.value = t;
+					sPh.value = p;
+					sWater.value = w;
+					showReadouts();
+				}
+
+				function setSlidersDisabled(off) {
+					sTemp.disabled = off;
+					sPh.disabled = off;
+					sWater.disabled = off;
+				}
+
+				function newRound() {
+					tankGallons = TANK_SIZES[Math.floor(Math.random() * TANK_SIZES.length)];
+					drawn = drawCards(tankGallons);
+					placed = {};
+					locked = false;
+					passed = false;
+					dragId = '';
+
+					tankSizeEl.textContent = tankGallons + ' gallon tank';
+
+					var startTemp = randomStart(68, 5, 86, 5);
+					var startPh = randomStart(50, 11, 80, 11);
+					var startWater = randomStart(0, 11, 50, 51);
+					sliderStart = { temp: startTemp, ph: startPh, waterChange: startWater };
+					setSliders(startTemp, startPh, startWater);
+					setSlidersDisabled(false);
+
+					renderCards();
+
+					setShown(checkBtn, true);
+					checkBtn.disabled = true;
+					resultBox.hidden = true;
+					resultBox.className = '';
+					setShown(nextLink, false);
+					setShown(retryBtn, false);
+					setShown(downloadBtn, false);
+					setShown(saveNote, false);
+					setStatus('Nothing in your setup yet.');
+				}
+
+				function roleOf(card) {
+					if (card.good === false) {
+						return 'wrong';
+					}
+					if (GROUP_MODE[card.group] === 'all') {
+						return 'needed';
+					}
+					if (GROUP_MODE[card.group] === 'one') {
+						return 'one-of-these';
+					}
+					return 'optional';
+				}
+
+				function evaluate() {
+					var mistakes = 0;
+					var checks = 0;
+
+					var temp = parseInt(sTemp.value, 10);
+					var ph = parseInt(sPh.value, 10);
+					var water = parseInt(sWater.value, 10);
+
+					checks = checks + 3;
+					if (temp < TEMP_LOW || temp > TEMP_HIGH) {
+						mistakes = mistakes + 1;
+					}
+					if (ph < PH_LOW || ph > PH_HIGH) {
+						mistakes = mistakes + 1;
+					}
+					if (water < WATER_LOW || water > WATER_HIGH) {
+						mistakes = mistakes + 1;
+					}
+
+					for (var g = 0; g < chosenGroups.length; g = g + 1) {
+						var name = chosenGroups[g];
+						var mode = GROUP_MODE[name];
+
+						if (mode === 'all') {
+							for (var i = 0; i < drawn.length; i = i + 1) {
+								if (drawn[i].group === name && drawn[i].good === true) {
+									checks = checks + 1;
+									if (placed[drawn[i].id] !== true) {
+										mistakes = mistakes + 1;
+									}
+								}
+							}
+						}
+
+						if (mode === 'one') {
+							checks = checks + 1;
+							var haveOne = false;
+							for (var k = 0; k < drawn.length; k = k + 1) {
+								if (drawn[k].group === name && drawn[k].good === true && placed[drawn[k].id] === true) {
+									haveOne = true;
+								}
+							}
+							if (haveOne === false) {
+								mistakes = mistakes + 1;
+							}
+						}
+					}
+
+					for (var b = 0; b < drawn.length; b = b + 1) {
+						if (drawn[b].good === false) {
+							checks = checks + 1;
+							if (placed[drawn[b].id] === true) {
+								mistakes = mistakes + 1;
+							}
+						}
+					}
+
+					return { mistakes: mistakes, checks: checks };
+				}
+
+				function loadSaved() {
+					var d;
+					try {
+						var saved = localStorage.getItem(STORE_KEY);
+						if (saved === null || saved === '') {
+							d = null;
+						} else {
+							d = JSON.parse(saved);
+						}
+					} catch (e) {
+						d = null;
+					}
+
+					if (d === null) {
+						d = {
+							attempts: 0,
+							passed: false,
+							firstMistakes: null,
+							bestMistakes: null,
+							lastMistakes: null,
+							history: []
+						};
+					}
+					return d;
+				}
+
+				function logAttempt(result, didPass) {
+					var d = loadSaved();
+
+					var cardsDrawn = [];
+					var cardsPlaced = [];
+					for (var i = 0; i < drawn.length; i = i + 1) {
+						cardsDrawn.push({ id: drawn[i].id, text: drawn[i].text, role: roleOf(drawn[i]) });
+						if (placed[drawn[i].id] === true) {
+							cardsPlaced.push(drawn[i].id);
+						}
+					}
+
+					d.attempts = d.attempts + 1;
+					d.lastMistakes = result.mistakes;
+
+					if (d.firstMistakes === null) {
+						d.firstMistakes = result.mistakes;
+					}
+
+					if (d.bestMistakes === null || result.mistakes < d.bestMistakes) {
+						d.bestMistakes = result.mistakes;
+					}
+
+					if (didPass === true) {
+						d.passed = true;
+					}
+
+					d.history.push({
+						attempt: d.attempts,
+						savedAt: new Date().toISOString(),
+						tankGallons: tankGallons,
+						passed: didPass,
+						mistakes: result.mistakes,
+						checks: result.checks,
+						sliderStart: sliderStart,
+						sliderEnd: {
+							temp: parseInt(sTemp.value, 10),
+							ph: parseInt(sPh.value, 10),
+							waterChange: parseInt(sWater.value, 10)
+						},
+						cardsDrawn: cardsDrawn,
+						cardsPlaced: cardsPlaced
+					});
+
+					try {
+						localStorage.setItem(STORE_KEY, JSON.stringify(d));
+					} catch (e) {
+					}
+				}
+
+				function downloadResults() {
+					var d = loadSaved();
+					var file = {
+						project: 'Betta By Design',
+						part: 'Final Challenge',
+						downloadedAt: new Date().toISOString(),
+						results: d
+					};
+
+					var text = JSON.stringify(file, null, 2);
+					var blob = new Blob([text], { type: 'application/json' });
+					var url = URL.createObjectURL(blob);
+
+					var link = document.createElement('a');
+					link.setAttribute('href', url);
+					link.setAttribute('download', 'bbd-final-challenge.json');
+					document.body.appendChild(link);
+					link.click();
+					document.body.removeChild(link);
+
+					setTimeout(function () {
+						URL.revokeObjectURL(url);
+					}, 1000);
+				}
+
+				function check() {
+					if (countPlaced() === 0) {
+						return;
+					}
+
+					var result = evaluate();
+
+					if (result.mistakes === 0) {
+						passed = true;
+					} else {
+						passed = false;
+					}
+
+					logAttempt(result, passed);
+					locked = true;
+					setSlidersDisabled(true);
+
+					if (passed === true) {
+						resultTitle.textContent = 'Nice work. You passed the Final Challenge!';
+						summary.textContent = 'Nothing is wrong with your setup.';
+						resultBox.className = 'pass';
+						setShown(nextLink, true);
+					} else {
+						resultTitle.textContent = 'Not this time.';
+						if (result.mistakes === 1) {
+							summary.textContent = 'There is 1 thing wrong with your tank. You need to get everything right to pass. Try again with a new tank.';
+						} else {
+							summary.textContent = 'There are ' + result.mistakes + ' things wrong with your tank. You need to get everything right to pass. Try again with a new tank.';
+						}
+						resultBox.className = 'fail';
+						setShown(nextLink, false);
+					}
+
+					setShown(retryBtn, true);
+					setShown(downloadBtn, true);
+					setShown(saveNote, true);
+					resultBox.hidden = false;
+					setShown(checkBtn, false);
+					resultTitle.focus();
+				}
+
+				sTemp.addEventListener('input', showReadouts);
+				sPh.addEventListener('input', showReadouts);
+				sWater.addEventListener('input', showReadouts);
+
+				wireZone(setupEl, true);
+				wireZone(trayEl, false);
+				document.addEventListener('dragover', autoScroll);
+
+				checkBtn.addEventListener('click', check);
+				retryBtn.addEventListener('click', newRound);
+				downloadBtn.addEventListener('click', downloadResults);
+
+				var tankImg = tankPicEl.querySelector('img');
+
+				tankImg.addEventListener('error', function () {
+					tankPicEl.classList.add('noimg');
+				});
+
+				if (tankImg.complete === true && tankImg.naturalWidth === 0) {
+					tankPicEl.classList.add('noimg');
+				}
+
+				newRound();
+			</script>
+
+	</body>
+</html>

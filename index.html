@@ -1,0 +1,313 @@
+<!DOCTYPE HTML>
+<!--
+	Phantom by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Betta By Design</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<style>
+			/* Locked tiles: dimmed, and not clickable */
+			.tiles article.locked { opacity: 0.6; }
+			.tiles article.locked > a { cursor: not-allowed; }
+			.tiles article h2 small { display: block; font-size: 0.5em; letter-spacing: 0.1em; margin-top: 0.4em; }
+
+			/* Study section at the end of the lesson path */
+			#study { background: #f5f5f5; border-radius: 0.35em; padding: 2.5em; margin-top: 3em; }
+			#study h2 { margin-top: 0; }
+			#study .actions { margin-bottom: 0; }
+		</style>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+
+							<!-- Logo -->
+								<a href="index.html" class="logo">
+									<span class="symbol"><img src="images/logo.png" alt="" /></span><span class="title">Betta By Design</span>
+								</a>
+
+							<!-- Nav -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<h2>Menu</h2>
+						<ul>
+							<li><a href="index.html">Home</a></li>
+							<li><a href="#how">How it works</a></li>
+							<li><a href="#lessons">Lessons</a></li>
+							<li><a href="#study">For participants</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<header>
+								<h1>Betta By Design</h1>
+								<p>An interactive tool to help you learn the fundamentals of owning a pet fish. Understand what a betta needs to not just survive, but to thrive in the environment you create for it! Take a short pre-assessment before you start Lesson 1. It does not show pass or fail, so it records what you already know. After the lessons you will take a post-assessment and a short feedback survey.</p>
+							</header>
+							<ul class="actions">
+								<li><a href="#how" class="button">See how it works</a></li>
+							</ul>
+
+							<!-- Study participants -->
+								<section id="study">
+									<h2>Before you begin</h2>
+									<ul>
+										<li>Your progress is saved in this browser on this device. Please use the same browser and device for the whole course.</li>
+										<li>Do not clear your browser's cache, cookies or site data, and do not use private or incognito mode, or your progress will be lost.</li>
+										<li>Please do not look up answers or ask anyone for help during the assessments. They measure what you know, not how well you can search.</li>
+									</ul>
+									<h2>When you finish</h2>
+									<p>Download your results from the pre-assessment, the post-assessment and the Final Challenge, and email all three files to 'kkhan60@gatech.edu'. These files are how I match your results to your survey answers.</p>
+									<ul class="actions">
+										<li><a href="pretest.html" class="button primary">Start pre-assessment</a></li>
+									</ul>
+								</section>
+
+							<section id="how">
+								<h2>How it works</h2>
+								<ol>
+									<li><strong>Watch</strong> a video of one minute or less that explains one new idea.</li>
+									<li><strong>Build</strong> a tank by dragging fish and gear into an empty tank.</li>
+									<li><strong>Check</strong> your tank. You get a checklist of what passed and what failed, with the reason.</li>
+									<li><strong>Unlock</strong> the next lesson by passing every check. If you do not pass, fix the tank and try again.</li>
+								</ol>
+							</section>
+
+							<h2 id="lessons">Your lessons</h2>
+							<section class="tiles">
+
+								<article class="style2">
+									<span class="image">
+										<img src="images/pic02.jpg" alt="" />
+									</span>
+									<a href="pretest.html">
+										<h2>Pre-assessment <small>Start here</small></h2>
+										<div class="content">
+											<p>A short quiz on what you already know. It does not show pass or fail.</p>
+										</div>
+									</a>
+								</article>
+
+								<article class="style1 locked" aria-disabled="true" data-requires="bbd_pre" data-href="Lessons/lesson1a.html">
+									<span class="image">
+										<img src="images/pic01.jpg" alt="" />
+									</span>
+									<a href="pretest.html" aria-disabled="true" tabindex="-1" onclick="return false;">
+										<h2>Lesson 1: Betta Basics and Supplies <small>Locked</small></h2>
+										<div class="content">
+											<p>Why learning matters, and the supplies needed to get started. </p>
+										</div>
+									</a>
+								</article>
+
+								<article class="style1 locked" aria-disabled="true" data-requires="bbd_ex1a,bbd_ex1b" data-href="Lessons/lesson2a.html">
+									<span class="image">
+										<img src="images/pic01.jpg" alt="" />
+									</span>
+									<a href="lesson2.html" aria-disabled="true" tabindex="-1" onclick="return false;">
+										<h2>Lesson 2: Tank Size <small>Locked</small></h2>
+										<div class="content">
+											<p>How much space does a betta need? Unlocks after Lesson 1.</p>
+										</div>
+									</a>
+								</article>
+
+								<article class="style2 locked" aria-disabled="true" data-requires="bbd_ex2a,bbd_ex2b" data-href="Lessons/lesson3a.html">
+									<span class="image">
+										<img src="images/pic02.jpg" alt="" />
+									</span>
+									<a href="lesson3.html" aria-disabled="true" tabindex="-1" onclick="return false;">
+										<h2>Lesson 3: Heating <small>Locked</small></h2>
+										<div class="content">
+											<p>Why water temperature matters, and how to keep it right. Unlocks after Lesson 2.</p>
+										</div>
+									</a>
+								</article>
+								
+								<article class="style3 locked" aria-disabled="true" data-requires="bbd_ex3a,bbd_ex3b" data-href="Lessons/lesson4a.html">
+									<span class="image">
+										<img src="images/pic03.jpg" alt="" />
+									</span>
+									<a href="lesson4.html" aria-disabled="true" tabindex="-1" onclick="return false;">
+										<h2>Lesson 4: Décor, Plants and Substrate <small>Locked</small></h2>
+										<div class="content">
+											<p>Choosing the right decor for your tank. Unlocks after Lesson 3.</p>
+										</div>
+									</a>
+								</article>
+
+								<article class="style4 locked" aria-disabled="true" data-requires="bbd_ex4a,bbd_ex4b" data-href="Lessons/lesson5a.html">
+									<span class="image">
+										<img src="images/pic03.jpg" alt="" />
+									</span>
+									<a href="lesson4.html" aria-disabled="true" tabindex="-1" onclick="return false;">
+										<h2>Lesson 5: Filtration <small>Locked</small></h2>
+										<div class="content">
+											<p>How a tank keeps its water clean. Unlocks after Lesson 4.</p>
+										</div>
+									</a>
+								</article>
+
+								<article class="style5 locked" aria-disabled="true" data-requires="bbd_ex5a,bbd_ex5b" data-href="Lessons/lesson6a.html">
+									<span class="image">
+										<img src="images/pic04.jpg" alt="" />
+									</span>
+									<a href="lesson5.html" aria-disabled="true" tabindex="-1" onclick="return false;">
+										<h2>Lesson 6: Water Quality & Move-In <small>Locked</small></h2>
+										<div class="content">
+											<p>Safe water, and bringing your betta home. Unlocks after Lesson 5.</p>
+										</div>
+									</a>
+								</article>
+
+								<article class="style6 locked" aria-disabled="true" data-requires="bbd_ex6a,bbd_ex6b" data-href="Lessons/lesson7a.html">
+									<span class="image">
+										<img src="images/pic05.jpg" alt="" />
+									</span>
+									<a href="capstone.html" aria-disabled="true" tabindex="-1" onclick="return false;">
+										<h2>Lesson 7: Tank Mates <small>Locked</small></h2>
+										<div class="content">
+											<p>Who can and can't share a tank with a betta. Unlocks after Lesson 6.</p>
+										</div>
+									</a>
+								</article>
+
+								<article class="style7 locked" aria-disabled="true" data-requires="bbd_ex7a,bbd_ex7b" data-href="Lessons/lesson8a.html">
+									<span class="image">
+										<img src="images/pic05.jpg" alt="" />
+									</span>
+									<a href="capstone.html" aria-disabled="true" tabindex="-1" onclick="return false;">
+										<h2>Lesson 8: Cleaning & Feeding <small>Locked</small></h2>
+										<div class="content">
+											<p>Keep the tank clean and your betta well fed. Unlocks after Lesson 7.</p>
+										</div>
+									</a>
+								</article>
+
+								<article class="style8 locked" aria-disabled="true" data-requires="bbd_ex8a,bbd_ex8b" data-href="Exercises/finalchallenge.html">
+									<span class="image">
+										<img src="images/pic06.jpg" alt="" />
+									</span>
+									<a href="posttest.html" aria-disabled="true" tabindex="-1" onclick="return false;">
+										<h2>Final Challenge <small>Locked</small></h2>
+										<div class="content">
+											<p>Build your own tank. Unlocks after Lesson 8.</p>
+										</div>
+									</a>
+								</article>
+
+								<article class="style5 locked" aria-disabled="true" data-requires="bbd_final" data-href="posttest.html">
+									<span class="image">
+										<img src="images/pic04.jpg" alt="" />
+									</span>
+									<a href="#lessons" aria-disabled="true" tabindex="-1" onclick="return false;">
+										<h2>Post-assessment <small>Locked</small></h2>
+										<div class="content">
+											<p>A short quiz on what you learned. Unlocks after the Final Challenge.</p>
+										</div>
+									</a>
+								</article>
+
+								<article class="style6 locked" aria-disabled="true" data-requires="bbd_post" data-href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=u5ghSHuuJUuLem1_Mvqgg4QZEewzEU9NkvozxVVquh1URE9IMlBOTE9LUlVOM1NIRVBMOTVHT0VBNi4u">
+									<span class="image">
+										<img src="images/pic05.jpg" alt="" />
+									</span>
+									<a href="#lessons" target="_blank" rel="noopener" aria-disabled="true" tabindex="-1" onclick="return false;">
+										<h2>Feedback survey <small>Locked</small></h2>
+										<div class="content">
+											<p>Tell us what you thought. Unlocks after the post-assessment.</p>
+										</div>
+									</a>
+								</article>
+
+							</section>
+
+						</div>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<section>
+								<h2>About this project</h2>
+								<p>Betta By Design is a course project prototype. It works best on a computer with an internet connection.</p>
+							</section>
+							<ul class="copyright">
+								<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+		
+			<script>
+				var tiles = document.querySelectorAll('[data-requires]');
+				for (var i = 0; i < tiles.length; i = i + 1) {
+					var needed = tiles[i].getAttribute('data-requires').split(',');
+					var allPassed = true;
+
+					for (var k = 0; k < needed.length; k = k + 1) {
+						var passedThis = false;
+						try {
+							var saved = JSON.parse(localStorage.getItem(needed[k]));
+							if (saved !== null && (saved.passed === true || saved.finished === true)) {
+								passedThis = true;
+							}
+						} catch (e) {
+						}
+						if (passedThis === false) {
+							allPassed = false;
+						}
+					}
+
+					if (allPassed === true) {
+						var tile = tiles[i];
+						var link = tile.querySelector('a');
+						if (link === null) {
+							link = tile;
+						}
+						tile.classList.remove('locked');
+						var small = tile.querySelector('small');
+						if (small !== null) {
+							small.textContent = 'Unlocked';
+						}
+						tile.removeAttribute('aria-disabled');
+						tile.removeAttribute('onclick');
+						link.removeAttribute('aria-disabled');
+						link.removeAttribute('onclick');
+						link.removeAttribute('tabindex');
+						link.setAttribute('href', tile.getAttribute('data-href'));
+					}
+				}
+			</script>
+	</body>
+</html>

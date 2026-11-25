@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Lesson 6 Exercise 2 | Betta By Design</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+		<style>
+			[hidden] {
+	            display: none !important;
+            }
+			.lesson-step {
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				font-size: 0.8em;
+				font-weight: 600;
+				margin-bottom: 0.5em;
+			}
+
+			.ex-label {
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				font-size: 0.8em;
+				font-weight: 600;
+				margin-top: 2em;
+				margin-right: 0;
+				margin-bottom: 0.5em;
+				margin-left: 0;
+			}
+
+			.ex-row {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 1.25em;
+				margin-top: 0;
+				margin-right: 0;
+				margin-bottom: 1em;
+				margin-left: 0;
+			}
+
+			.ex-card {
+				box-sizing: border-box;
+				border-width: 2px;
+				border-style: solid;
+				border-color: #c9c9c9;
+				border-radius: 0.35em;
+				padding: 0.75em;
+				text-align: center;
+				background-color: #ffffff;
+			}
+
+			.ex-card:focus-visible {
+				outline-width: 3px;
+				outline-style: solid;
+				outline-color: #212931;
+				outline-offset: 2px;
+			}
+
+			.ex-card .cap {
+				margin-top: 0.5em;
+				font-weight: 600;
+			}
+
+			.step {
+				flex-grow: 1;
+				flex-shrink: 1;
+				flex-basis: 100%;
+				text-align: left;
+				font-weight: 600;
+				cursor: grab;
+			}
+
+			.step.selected {
+				outline-width: 3px;
+				outline-style: solid;
+				outline-color: #212931;
+				outline-offset: 2px;
+			}
+
+			.step.placed {
+				opacity: 0.45;
+			}
+
+			.slotcard {
+				flex-grow: 0;
+				flex-shrink: 1;
+				flex-basis: calc(50% - 0.625em);
+				min-width: 200px;
+				border-style: dashed;
+				border-color: #585858;
+				min-height: 80px;
+				cursor: pointer;
+				text-align: left;
+			}
+
+			.slotcard.over {
+				background-color: #f0f0f0;
+			}
+
+			.slotcard img {
+				display: block;
+				width: 100%;
+				aspect-ratio: 1 / 1;
+				object-fit: cover;
+				border-radius: 0.25em;
+				margin-bottom: 0.75em;
+			}
+
+			.slotcard .slot-number {
+				font-size: 1.15em;
+				font-weight: 600;
+			}
+
+			.slotcard .slot {
+				margin-top: 0.5em;
+				min-height: 1.5em;
+				font-weight: 400;
+			}
+
+			.slotcard .slot .empty {
+				color: #8a8a8a;
+				font-weight: 400;
+			}
+
+			#result {
+				border-width: 2px;
+				border-style: solid;
+				border-color: #585858;
+				border-radius: 0.35em;
+				padding: 1.25em;
+				margin-top: 1.5em;
+				margin-right: 0;
+				margin-bottom: 0;
+				margin-left: 0;
+				box-sizing: border-box;
+				text-align: left;
+			}
+
+			#result h2 {
+				font-size: 1.4em;
+			}
+
+			#result.pass {
+				background-color: #e3f4e6;
+				border-color: #2e7d46;
+			}
+
+			#result.fail {
+				background-color: #fbe4e4;
+				border-color: #b3261e;
+			}
+
+			#main header p {
+				font-size: 1.6em;
+				line-height: 1.4;
+			}
+
+			#status {
+				font-size: 1.4em;
+			}
+
+			details summary {
+				font-size: 1.4em;
+				cursor: pointer;
+			}
+
+			details p {
+				font-size: 1.2em;
+			}
+
+			#checklist {
+				list-style: none;
+				padding-left: 0;
+				margin-bottom: 1em;
+			}
+
+			details {
+				margin-top: 1.5em;
+				margin-right: 0;
+				margin-bottom: 1.5em;
+				margin-left: 0;
+				border-width: 2px;
+				border-style: solid;
+				border-color: #c9c9c9;
+				border-radius: 0.35em;
+				padding-top: 0.75em;
+				padding-right: 1em;
+				padding-bottom: 0.75em;
+				padding-left: 1em;
+				background-color: #ffffff;
+				text-align: left;
+			}
+
+			details[open] {
+				border-color: #585858;
+			}
+
+			details p {
+				margin-top: 0.75em;
+				margin-right: 0;
+				margin-bottom: 0;
+				margin-left: 0;
+			}
+
+			.ex-layout {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 2.5em;
+				align-items: flex-start;
+				margin-bottom: 3em;
+			}
+
+			.ex-stage {
+				flex-grow: 3;
+				flex-shrink: 1;
+				flex-basis: 460px;
+				min-width: 0;
+			}
+
+			.ex-side {
+				flex-grow: 2;
+				flex-shrink: 1;
+				flex-basis: 300px;
+				min-width: 0;
+				position: sticky;
+				top: 1.5em;
+			}
+		</style>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+
+							<!-- Logo -->
+								<a href="../index.html" class="logo">
+									<span class="symbol"><img src="../images/logo.png" alt="" /></span><span class="title">Betta By Design</span>
+								</a>
+
+							<!-- Navigation -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<h2>Menu</h2>
+						<ul>
+							<li><a href="../index.html">Home</a></li>
+							<li><a href="../index.html#how">How it works</a></li>
+							<li><a href="../index.html#lessons">Lessons</a></li>
+							<li><a href="../index.html#study">For participants</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<header>
+								<div class="lesson-step">Lesson 6 &middot; Exercise 2 of 2</div>
+								<h1>Water Quality & Move-In</h1>
+								<p id="prompt">Drag/click each reason onto the step it explains.</p>
+							</header>
+
+							<noscript><p>This exercise needs JavaScript. Please turn it on in your browser.</p></noscript>
+
+							<div class="ex-layout">
+								<div class="ex-stage">
+									<div class="ex-label">Reasons</div>
+									<div class="ex-row" id="steps"></div>
+
+									<div class="ex-label">Steps</div>
+									<div class="ex-row" id="slots"></div>
+
+									<div id="result" hidden>
+										<h2 id="resultTitle" tabindex="-1"></h2>
+										<ul id="checklist"></ul>
+										<p id="summary"></p>
+										<ul class="actions">
+											<li><a id="nextLink" href="../Lessons/lesson7a.html" class="button primary" hidden>Continue to Lesson 7</a></li>
+											<li><button id="retryBtn" class="button" hidden>Try again</button></li>
+										</ul>
+									</div>
+								</div>
+
+								<aside class="ex-side">
+									<p id="status" aria-live="polite">Nothing placed yet.</p>
+
+									<details>
+										<summary>Need a hint?</summary>
+										<p>What does each step do to benefit your betta?</p>
+									</details>
+
+									<ul class="actions">
+										<li><button id="checkBtn" class="button primary" disabled>Check my answers</button></li>
+									</ul>
+								</aside>
+
+							</div>
+
+							<ul class="actions">
+								<li><a href="../Lessons/lesson6b.html" class="button">Back to the video</a></li>
+								<li><a href="../index.html#lessons" class="button">Back to all lessons</a></li>
+							</ul>
+						</div>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<section>
+								<h2>About this project</h2>
+								<p>Betta By Design is a course project prototype. It works best on a computer with an internet connection.</p>
+							</section>
+							<ul class="copyright">
+								<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+			<script>
+				var PAIRS = {
+					float: {
+						step: 'Float the cup or bag in the tank for about 15 minutes',
+						img: '../images/float.jpeg',
+						reason: 'Lets the temperatures even out.',
+						hint: 'What is different between the water in the cup and the water in your tank?'
+					},
+					add: {
+						step: 'Add a little tank water to the cup every few minutes',
+						img: '../images/addwater.jpeg',
+						reason: 'Lets your betta get used to the new water parameters slowly.',
+						hint: 'Will the water from the pet store match your fish tank water?'
+					},
+					bag: {
+						step: 'Pour your betta into a clean bag or small container if the cup might tip',
+						img: '../images/newcontainer.jpeg',
+						reason: 'It floats more easily on the surface.',
+						hint: 'What might happen to the cup while it floats?'
+					},
+					net: {
+						step: 'Net your betta into the tank and throw out the water it came in',
+						img: '../images/netfish.jpeg',
+						reason: 'The pet store water can have harmful bacteria or parasites.',
+						hint: 'Think about where that water has been.'
+					}
+				};
+
+				var IDS = ['float', 'add', 'bag', 'net'];
+				var SLOTS = ['float', 'add', 'bag', 'net'];
+				var TOTAL = 4;
+				var STORE_KEY = 'bbd_ex6b';
+
+				var order;
+				var placement;
+				var selected;
+				var locked;
+				var passed = false;
+
+				var stepRow = document.getElementById('steps');
+				var slotRow = document.getElementById('slots');
+				var statusEl = document.getElementById('status');
+				var checkBtn = document.getElementById('checkBtn');
+				var resultBox = document.getElementById('result');
+				var resultTitle = document.getElementById('resultTitle');
+				var checklist = document.getElementById('checklist');
+				var summary = document.getElementById('summary');
+				var nextLink = document.getElementById('nextLink');
+				var retryBtn = document.getElementById('retryBtn');
+
+				function shuffle(a) {
+					for (var i = a.length - 1; i > 0; i = i - 1) {
+						var j = Math.floor(Math.random() * (i + 1));
+						var t = a[i];
+						a[i] = a[j];
+						a[j] = t;
+					}
+					return a;
+				}
+
+				function setStatus(text) {
+					statusEl.textContent = text;
+				}
+
+				function setShown(el, shown) {
+					if (shown === true) {
+						el.hidden = false;
+						el.style.removeProperty('display');
+					} else {
+						el.hidden = true;
+						el.style.setProperty('display', 'none', 'important');
+					}
+				}
+
+				function countPlaced() {
+					var n = 0;
+					for (var i = 0; i < SLOTS.length; i = i + 1) {
+						if (placement[SLOTS[i]]) {
+							n = n + 1;
+						}
+					}
+					return n;
+				}
+
+				function slotOf(stepId) {
+					for (var i = 0; i < SLOTS.length; i = i + 1) {
+						if (placement[SLOTS[i]] === stepId) {
+							return SLOTS[i];
+						}
+					}
+					return null;
+				}
+
+				function logAttempt(didPass) {
+					try {
+						var saved = localStorage.getItem(STORE_KEY);
+						var d;
+						if (saved === null || saved === '') {
+							d = {
+								attempts: 0,
+								passed: false
+							};
+						} else {
+							d = JSON.parse(saved);
+						}
+
+						d.attempts = d.attempts + 1;
+
+						if (didPass === true) {
+							d.passed = true;
+						}
+
+						localStorage.setItem(STORE_KEY, JSON.stringify(d));
+					} catch (e) {
+					}
+				}
+
+				function markSteps() {
+					var cards = stepRow.querySelectorAll('.step');
+					for (var i = 0; i < cards.length; i = i + 1) {
+						var id = cards[i].getAttribute('data-id');
+
+						if (selected === id) {
+							cards[i].classList.add('selected');
+						} else {
+							cards[i].classList.remove('selected');
+						}
+
+						if (slotOf(id) !== null) {
+							cards[i].classList.add('placed');
+						} else {
+							cards[i].classList.remove('placed');
+						}
+					}
+				}
+
+				function renderSlots() {
+					var zones = slotRow.querySelectorAll('.slotcard');
+					for (var i = 0; i < zones.length; i = i + 1) {
+						var slotId = zones[i].getAttribute('data-slot');
+						var slot = zones[i].querySelector('.slot');
+						var sid = placement[slotId];
+						if (sid) {
+							slot.textContent = PAIRS[sid].reason;
+						} else {
+							slot.innerHTML = '<span class="empty">Drop a reason here</span>';
+						}
+					}
+				}
+
+				function updateStatus() {
+					var n = countPlaced();
+					if (n === 0) {
+						setStatus('Nothing placed yet.');
+					} else if (n < SLOTS.length) {
+						setStatus(n + ' of ' + SLOTS.length + ' reasons placed.');
+					} else {
+						setStatus('All reasons placed. Select "Check my answers", or move any of them.');
+					}
+
+					if (n < SLOTS.length) {
+						checkBtn.disabled = true;
+					} else {
+						checkBtn.disabled = false;
+					}
+				}
+
+				function select(id) {
+					if (locked === true) {
+						return;
+					}
+					selected = id;
+					markSteps();
+					setStatus('Reason selected. Now choose a step.');
+				}
+
+				function place(stepId, slotId) {
+					if (locked === true) {
+						return;
+					}
+					if (PAIRS[stepId] === undefined) {
+						return;
+					}
+					var oldSlot = slotOf(stepId);
+					if (oldSlot !== null) {
+						placement[oldSlot] = null;
+					}
+					placement[slotId] = stepId;
+					selected = null;
+					renderSlots();
+					markSteps();
+					updateStatus();
+				}
+
+				function removeFrom(slotId) {
+					if (locked === true) {
+						return;
+					}
+					placement[slotId] = null;
+					renderSlots();
+					markSteps();
+					updateStatus();
+				}
+
+				function addStepCard(id) {
+					var el = document.createElement('div');
+					el.className = 'ex-card step';
+					el.setAttribute('role', 'button');
+					el.setAttribute('tabindex', '0');
+					el.setAttribute('draggable', 'true');
+					el.setAttribute('data-id', id);
+					el.setAttribute('aria-label', PAIRS[id].reason);
+					el.textContent = PAIRS[id].reason;
+
+					el.addEventListener('dragstart', function (e) {
+						e.dataTransfer.setData('text/plain', id);
+						e.dataTransfer.effectAllowed = 'move';
+						selected = id;
+					});
+
+					el.addEventListener('click', function () {
+						select(id);
+					});
+
+					el.addEventListener('keydown', function (e) {
+						if (e.key === 'Enter' || e.key === ' ') {
+							e.preventDefault();
+							select(id);
+						}
+					});
+
+					stepRow.appendChild(el);
+				}
+
+				function addSlotZone(slotId) {
+					var zone = document.createElement('div');
+					zone.className = 'ex-card slotcard';
+					zone.setAttribute('role', 'button');
+					zone.setAttribute('tabindex', '0');
+					zone.setAttribute('data-slot', slotId);
+					zone.setAttribute('aria-label', 'Step: ' + PAIRS[slotId].step);
+					zone.innerHTML = '<img src="' + PAIRS[slotId].img + '" alt="" /><div class="slot-number">' + PAIRS[slotId].step + '</div><div class="slot"></div>';
+
+					function activate() {
+						if (selected) {
+							place(selected, slotId);
+						} else if (placement[slotId]) {
+							removeFrom(slotId);
+						} else {
+							setStatus('Select a reason first, then select a step.');
+						}
+					}
+
+					zone.addEventListener('dragover', function (e) {
+						e.preventDefault();
+						zone.classList.add('over');
+					});
+
+					zone.addEventListener('dragleave', function () {
+						zone.classList.remove('over');
+					});
+
+					zone.addEventListener('drop', function (e) {
+						e.preventDefault();
+						zone.classList.remove('over');
+						var droppedId = e.dataTransfer.getData('text/plain');
+						place(droppedId, slotId);
+					});
+
+					zone.addEventListener('click', activate);
+
+					zone.addEventListener('keydown', function (e) {
+						if (e.key === 'Enter' || e.key === ' ') {
+							e.preventDefault();
+							activate();
+						}
+					});
+
+					slotRow.appendChild(zone);
+				}
+
+				function newRound() {
+					order = shuffle(IDS.slice());
+					placement = {};
+					selected = null;
+					locked = false;
+					passed = false;
+
+					stepRow.innerHTML = '';
+					slotRow.innerHTML = '';
+					for (var i = 0; i < order.length; i = i + 1) {
+						addStepCard(order[i]);
+					}
+					for (var k = 0; k < SLOTS.length; k = k + 1) {
+						addSlotZone(SLOTS[k]);
+					}
+
+					renderSlots();
+					markSteps();
+
+					setShown(checkBtn, true);
+					checkBtn.disabled = true;
+					resultBox.hidden = true;
+					resultBox.className = '';
+					setShown(nextLink, false);
+					setShown(retryBtn, false);
+					setStatus('Nothing placed yet.');
+				}
+
+				function addLine(text) {
+					var li = document.createElement('li');
+					li.textContent = text;
+					checklist.appendChild(li);
+				}
+
+				function check() {
+					if (countPlaced() < SLOTS.length) {
+						return;
+					}
+
+					var score = 0;
+					checklist.innerHTML = '';
+
+					for (var i = 0; i < SLOTS.length; i = i + 1) {
+						var slotId = SLOTS[i];
+						var got = placement[slotId];
+
+						if (got === slotId) {
+							score = score + 1;
+							addLine('Passed: "' + PAIRS[slotId].step + '". ' + PAIRS[slotId].reason + '.');
+						} else {
+							addLine('Not yet: "' + PAIRS[slotId].step + '" has a different reason. ' + PAIRS[slotId].hint);
+						}
+					}
+
+					if (score === TOTAL) {
+						passed = true;
+					} else {
+						passed = false;
+					}
+
+					logAttempt(passed);
+					locked = true;
+
+					if (passed === true) {
+						resultTitle.textContent = 'Nice work. You passed!';
+						summary.textContent = score + ' of ' + TOTAL + ' checks passed.';
+						resultBox.className = 'pass';
+						setShown(nextLink, true);
+						setShown(retryBtn, true);
+					} else {
+						resultTitle.textContent = 'Not this time.';
+						summary.textContent = score + ' of ' + TOTAL + ' checks passed. Fix what did not pass and try again.';
+						resultBox.className = 'fail';
+						setShown(nextLink, false);
+						setShown(retryBtn, true);
+					}
+
+					resultBox.hidden = false;
+					setShown(checkBtn, false);
+					resultTitle.focus();
+				}
+
+				document.addEventListener('dragover', function (e) {
+					var edge = 120;
+					var speed = 18;
+					if (e.clientY > window.innerHeight - edge) {
+						window.scrollBy(0, speed);
+					} else if (e.clientY < edge) {
+						window.scrollBy(0, -speed);
+					}
+				});
+
+				checkBtn.addEventListener('click', check);
+				retryBtn.addEventListener('click', newRound);
+				newRound();
+			</script>
+
+	</body>
+</html>

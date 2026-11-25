@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Lesson 8 Exercise 2 | Betta By Design</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+		<style>
+            [hidden] {
+	            display: none !important;
+            }
+			.lesson-step {
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				font-size: 0.8em;
+				font-weight: 600;
+				margin-bottom: 0.5em;
+			}
+
+			.ex-label {
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				font-size: 0.8em;
+				font-weight: 600;
+				margin-top: 2em;
+				margin-right: 0;
+				margin-bottom: 0.5em;
+				margin-left: 0;
+			}
+
+			.ex-row {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 1.25em;
+				margin-top: 0;
+				margin-right: 0;
+				margin-bottom: 1em;
+				margin-left: 0;
+			}
+
+			.ex-card {
+				box-sizing: border-box;
+				border-width: 2px;
+				border-style: solid;
+				border-color: #c9c9c9;
+				border-radius: 0.35em;
+				padding: 0.75em;
+				text-align: center;
+				background-color: #ffffff;
+			}
+
+			.ex-card:focus-visible {
+				outline-width: 3px;
+				outline-style: solid;
+				outline-color: #212931;
+				outline-offset: 2px;
+			}
+
+			.ex-card .cap {
+				margin-top: 0.5em;
+				font-weight: 600;
+			}
+
+			.choice {
+				flex-grow: 1;
+				flex-shrink: 1;
+				flex-basis: 200px;
+				max-width: 260px;
+				cursor: pointer;
+			}
+
+			.choice img {
+				display: block;
+				width: 100%;
+				height: 140px;
+				object-fit: cover;
+				border-radius: 0.25em;
+			}
+
+			.choice .size {
+				margin-top: 0.5em;
+				font-size: 1.3em;
+				font-weight: 600;
+			}
+
+			.choice .mark {
+				margin-top: 0.25em;
+				min-height: 1.5em;
+				font-weight: 600;
+			}
+
+			.choice.selected {
+				border-width: 4px;
+				border-color: #212931;
+				background-color: #f0f0f0;
+				padding: calc(0.75em - 2px);
+			}
+
+			#result {
+				border-width: 2px;
+				border-style: solid;
+				border-color: #585858;
+				border-radius: 0.35em;
+				padding: 1.25em;
+				margin-top: 1.5em;
+				margin-right: 0;
+				margin-bottom: 0;
+				margin-left: 0;
+				box-sizing: border-box;
+				text-align: left;
+			}
+
+			#result h2 {
+				font-size: 1.4em;
+			}
+
+			#result.pass {
+				background-color: #e3f4e6;
+				border-color: #2e7d46;
+			}
+
+			#result.fail {
+				background-color: #fbe4e4;
+				border-color: #b3261e;
+			}
+
+			#main header p {
+				font-size: 1.6em;
+				line-height: 1.4;
+			}
+
+			#status {
+				font-size: 1.4em;
+			}
+
+			details summary {
+				font-size: 1.4em;
+				cursor: pointer;
+			}
+
+			details p {
+				font-size: 1.2em;
+			}
+
+			#checklist {
+				list-style: none;
+				padding-left: 0;
+				margin-bottom: 1em;
+			}
+
+			details {
+				margin-top: 1.5em;
+				margin-right: 0;
+				margin-bottom: 1.5em;
+				margin-left: 0;
+				border-width: 2px;
+				border-style: solid;
+				border-color: #c9c9c9;
+				border-radius: 0.35em;
+				padding-top: 0.75em;
+				padding-right: 1em;
+				padding-bottom: 0.75em;
+				padding-left: 1em;
+				background-color: #ffffff;
+				text-align: left;
+			}
+
+			details[open] {
+				border-color: #585858;
+			}
+
+			details p {
+				margin-top: 0.75em;
+				margin-right: 0;
+				margin-bottom: 0;
+				margin-left: 0;
+			}
+
+			.ex-layout {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 2.5em;
+				align-items: flex-start;
+				margin-bottom: 3em;
+			}
+
+			.ex-stage {
+				flex-grow: 3;
+				flex-shrink: 1;
+				flex-basis: 460px;
+				min-width: 0;
+			}
+
+			.ex-side {
+				flex-grow: 2;
+				flex-shrink: 1;
+				flex-basis: 300px;
+				min-width: 0;
+				position: sticky;
+				top: 1.5em;
+			}
+		</style>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+
+							<!-- Logo -->
+								<a href="../index.html" class="logo">
+									<span class="symbol"><img src="../images/logo.png" alt="" /></span><span class="title">Betta By Design</span>
+								</a>
+
+							<!-- Navigation -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<h2>Menu</h2>
+						<ul>
+							<li><a href="../index.html">Home</a></li>
+							<li><a href="../index.html#how">How it works</a></li>
+							<li><a href="../index.html#lessons">Lessons</a></li>
+							<li><a href="../index.html#study">For participants</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<header>
+								<div class="lesson-step">Lesson 8 &middot; Exercise 2 of 2</div>
+								<h1>Cleaning & Feeding</h1>
+								<p id="prompt">Choose one answer for each question.</p>
+							</header>
+
+							<noscript><p>This exercise needs JavaScript. Please turn it on in your browser.</p></noscript>
+
+							<div class="ex-layout">
+								<div class="ex-stage">
+									<div id="questions"></div>
+
+									<div id="result" hidden>
+										<h2 id="resultTitle" tabindex="-1"></h2>
+										<ul id="checklist"></ul>
+										<p id="summary"></p>
+										<ul class="actions">
+											<li><a id="nextLink" href="../Exercises/finalchallenge.html" class="button primary" hidden>Continue to the Final Challenge</a></li>
+											<li><button id="retryBtn" class="button" hidden>Try again</button></li>
+										</ul>
+									</div>
+								</div>
+
+								<aside class="ex-side">
+									<p id="status" aria-live="polite">Nothing placed yet.</p>
+
+									<details>
+										<summary>Need a hint?</summary>
+										<p>Think about what bettas eat, and what happens to food they do not finish.</p>
+									</details>
+
+									<ul class="actions">
+										<li><button id="checkBtn" class="button primary" disabled>Check my answers</button></li>
+									</ul>
+								</aside>
+
+							</div>
+
+							<ul class="actions">
+								<li><a href="../Lessons/lesson8b.html" class="button">Back to the video</a></li>
+								<li><a href="../index.html#lessons" class="button">Back to all lessons</a></li>
+							</ul>
+						</div>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<section>
+								<h2>About this project</h2>
+								<p>Betta By Design is a course project prototype. It works best on a computer with an internet connection.</p>
+							</section>
+							<ul class="copyright">
+								<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+			<script>
+				var QUESTIONS = [
+					{
+						id: 'food',
+						title: 'What do you feed?',
+						why: 'Bettas are carnivores.',
+						options: [
+							{
+								id: 'pellets',
+								label: 'Betta pellets',
+								img: '../images/bettapellets.jpeg',
+								alt: 'betta pellets',
+								ok: true,
+								hint: ''
+							},
+							{
+								id: 'generic',
+								label: 'Generic fish food',
+								img: '../images/genericfood.jpeg',
+								alt: 'generic fish food',
+								ok: false,
+								hint: 'Think about whether food made for any fish has what a betta needs to survive.'
+							}
+						]
+					},
+					{
+						id: 'often',
+						title: 'How often do you feed?',
+						why: 'Feed pellets once or twice a day.',
+						options: [
+							{
+								id: 'daily',
+								label: 'Once or twice a day',
+								img: '',
+								alt: '',
+								ok: true,
+								hint: ''
+							},
+							{
+								id: 'five',
+								label: 'Five times a day',
+								img: '',
+								alt: '',
+								ok: false,
+								hint: 'What happens to the food your betta does not finish?'
+							},
+							{
+								id: 'weekly',
+								label: 'Once a week',
+								img: '',
+								alt: '',
+								ok: false,
+								hint: 'How often does your betta need to eat to stay healthy?'
+							}
+						]
+					},
+					{
+						id: 'amount',
+						title: 'How much do you feed?',
+						why: 'A good rule is only what your betta can finish in about two minutes.',
+						options: [
+							{
+								id: 'twomin',
+								label: 'What your betta can finish in about two minutes',
+								img: '../images/2min.jpeg',
+								alt: 'a small amount of food',
+								ok: true,
+								hint: ''
+							},
+							{
+								id: 'surface',
+								label: 'Enough to cover the surface',
+								img: '../images/surfacefood.jpeg',
+								alt: 'food covering the surface of the water',
+								ok: false,
+								hint: 'Can your betta finish that much food in a couple of minutes?'
+							},
+							{
+								id: 'container',
+								label: 'The entire container',
+								img: '../images/entire%20container.jpeg',
+								alt: 'an entire container of food',
+								ok: false,
+								hint: 'Think about what leftover food does after it sinks to the bottom.'
+							}
+						]
+					}
+				];
+
+				var STORE_KEY = 'bbd_ex8b';
+
+				var optionOrder;
+				var picked;
+				var locked;
+				var passed = false;
+
+				var questionsEl = document.getElementById('questions');
+				var statusEl = document.getElementById('status');
+				var checkBtn = document.getElementById('checkBtn');
+				var resultBox = document.getElementById('result');
+				var resultTitle = document.getElementById('resultTitle');
+				var checklist = document.getElementById('checklist');
+				var summary = document.getElementById('summary');
+				var nextLink = document.getElementById('nextLink');
+				var retryBtn = document.getElementById('retryBtn');
+
+				function shuffle(a) {
+					for (var i = a.length - 1; i > 0; i = i - 1) {
+						var j = Math.floor(Math.random() * (i + 1));
+						var t = a[i];
+						a[i] = a[j];
+						a[j] = t;
+					}
+					return a;
+				}
+
+				function setStatus(text) {
+					statusEl.textContent = text;
+				}
+
+				function setShown(el, shown) {
+					if (shown === true) {
+						el.hidden = false;
+						el.style.removeProperty('display');
+					} else {
+						el.hidden = true;
+						el.style.setProperty('display', 'none', 'important');
+					}
+				}
+
+				function countAnswered() {
+					var n = 0;
+					for (var i = 0; i < QUESTIONS.length; i = i + 1) {
+						if (picked[QUESTIONS[i].id]) {
+							n = n + 1;
+						}
+					}
+					return n;
+				}
+
+				function findOption(question, optionId) {
+					for (var i = 0; i < question.options.length; i = i + 1) {
+						if (question.options[i].id === optionId) {
+							return question.options[i];
+						}
+					}
+					return null;
+				}
+
+				function logAttempt(didPass) {
+					try {
+						var saved = localStorage.getItem(STORE_KEY);
+						var d;
+						if (saved === null || saved === '') {
+							d = {
+								attempts: 0,
+								passed: false
+							};
+						} else {
+							d = JSON.parse(saved);
+						}
+
+						d.attempts = d.attempts + 1;
+
+						if (didPass === true) {
+							d.passed = true;
+						}
+
+						localStorage.setItem(STORE_KEY, JSON.stringify(d));
+					} catch (e) {
+					}
+				}
+
+				function markChoices() {
+					var cards = questionsEl.querySelectorAll('.choice');
+					for (var i = 0; i < cards.length; i = i + 1) {
+						var qid = cards[i].getAttribute('data-q');
+						var id = cards[i].getAttribute('data-id');
+						var mark = cards[i].querySelector('.mark');
+
+						if (picked[qid] === id) {
+							cards[i].classList.add('selected');
+							cards[i].setAttribute('aria-pressed', 'true');
+							mark.textContent = 'Selected';
+						} else {
+							cards[i].classList.remove('selected');
+							cards[i].setAttribute('aria-pressed', 'false');
+							mark.textContent = '';
+						}
+					}
+				}
+
+				function updateStatus() {
+					var n = countAnswered();
+					if (n === 0) {
+						setStatus('Nothing chosen yet.');
+					} else if (n < QUESTIONS.length) {
+						setStatus(n + ' of ' + QUESTIONS.length + ' questions answered.');
+					} else {
+						setStatus('All questions answered. Select "Check my answers", or change any of them.');
+					}
+
+					if (n < QUESTIONS.length) {
+						checkBtn.disabled = true;
+					} else {
+						checkBtn.disabled = false;
+					}
+				}
+
+				function choose(questionId, optionId) {
+					if (locked === true) {
+						return;
+					}
+
+					picked[questionId] = optionId;
+					markChoices();
+					updateStatus();
+				}
+
+				function addChoice(row, question, option) {
+					var el = document.createElement('div');
+					el.className = 'ex-card choice';
+					el.setAttribute('role', 'button');
+					el.setAttribute('tabindex', '0');
+					el.setAttribute('aria-pressed', 'false');
+					el.setAttribute('data-q', question.id);
+					el.setAttribute('data-id', option.id);
+					el.setAttribute('aria-label', option.label);
+
+					var picture = '';
+					if (option.img !== '') {
+						picture = '<img src="' + option.img + '" alt="' + option.alt + '" />';
+					}
+					el.innerHTML = picture + '<div class="size">' + option.label + '</div><div class="mark"></div>';
+
+					el.addEventListener('click', function () {
+						choose(question.id, option.id);
+					});
+
+					el.addEventListener('keydown', function (e) {
+						if (e.key === 'Enter' || e.key === ' ') {
+							e.preventDefault();
+							choose(question.id, option.id);
+						}
+					});
+
+					row.appendChild(el);
+				}
+
+				function newRound() {
+					picked = {};
+					optionOrder = {};
+					locked = false;
+					passed = false;
+
+					questionsEl.innerHTML = '';
+					for (var i = 0; i < QUESTIONS.length; i = i + 1) {
+						var question = QUESTIONS[i];
+
+						var label = document.createElement('div');
+						label.className = 'ex-label';
+						label.textContent = question.title;
+						questionsEl.appendChild(label);
+
+						var row = document.createElement('div');
+						row.className = 'ex-row';
+						row.setAttribute('data-q', question.id);
+						questionsEl.appendChild(row);
+
+						optionOrder[question.id] = shuffle(question.options.slice());
+						for (var k = 0; k < optionOrder[question.id].length; k = k + 1) {
+							addChoice(row, question, optionOrder[question.id][k]);
+						}
+					}
+
+					markChoices();
+
+					setShown(checkBtn, true);
+					checkBtn.disabled = true;
+					resultBox.hidden = true;
+					resultBox.className = '';
+					setShown(nextLink, false);
+					setShown(retryBtn, false);
+					setStatus('Nothing chosen yet.');
+				}
+
+				function addLine(text) {
+					var li = document.createElement('li');
+					li.textContent = text;
+					checklist.appendChild(li);
+				}
+
+				function check() {
+					if (countAnswered() < QUESTIONS.length) {
+						return;
+					}
+
+					var score = 0;
+					checklist.innerHTML = '';
+
+					for (var i = 0; i < QUESTIONS.length; i = i + 1) {
+						var question = QUESTIONS[i];
+						var option = findOption(question, picked[question.id]);
+
+						if (option.ok === true) {
+							score = score + 1;
+							addLine('Passed: ' + question.title + ' ' + option.label + '. ' + question.why);
+						} else {
+							addLine('Not yet: "' + option.label + '" is not the answer to "' + question.title + '" ' + option.hint);
+						}
+					}
+
+					if (score === QUESTIONS.length) {
+						passed = true;
+					} else {
+						passed = false;
+					}
+
+					logAttempt(passed);
+					locked = true;
+
+					if (passed === true) {
+						resultTitle.textContent = 'Nice work. You passed!';
+						summary.textContent = score + ' of ' + QUESTIONS.length + ' checks passed.';
+						resultBox.className = 'pass';
+						setShown(nextLink, true);
+						setShown(retryBtn, true);
+					} else {
+						resultTitle.textContent = 'Not this time.';
+						summary.textContent = score + ' of ' + QUESTIONS.length + ' checks passed. Fix what did not pass and try again.';
+						resultBox.className = 'fail';
+						setShown(nextLink, false);
+						setShown(retryBtn, true);
+					}
+
+					resultBox.hidden = false;
+					setShown(checkBtn, false);
+					resultTitle.focus();
+				}
+
+				checkBtn.addEventListener('click', check);
+				retryBtn.addEventListener('click', newRound);
+				newRound();
+			</script>
+
+	</body>
+</html>

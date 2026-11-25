@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Lesson 1 Exercise | Betta By Design</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+		<style>
+			.ex-card img { display: block; width: 100%; height: auto; }
+			.zone .slot img { max-width: 110px; margin: 0 auto; }
+			.lesson-step {
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				font-size: 0.8em;
+				font-weight: 600;
+				margin-bottom: 0.5em;
+			}
+
+			.ex-label {
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				font-size: 0.8em;
+				font-weight: 600;
+				margin-top: 2em;
+				margin-right: 0;
+				margin-bottom: 0.5em;
+				margin-left: 0;
+			}
+
+			.ex-row {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 1.5em;
+				margin-top: 0;
+				margin-right: 0;
+				margin-bottom: 1em;
+				margin-left: 0;
+			}
+
+			.ex-card {
+				flex-grow: 1;
+				flex-shrink: 1;
+				flex-basis: 200px;
+				max-width: 260px;
+				box-sizing: border-box;
+				border-width: 2px;
+				border-style: solid;
+				border-color: #c9c9c9;
+				border-radius: 0.35em;
+				padding: 1em;
+				text-align: center;
+				background-color: #ffffff;
+			}
+
+			.ex-card svg {
+				display: block;
+				width: 100%;
+				height: auto;
+			}
+
+			.ex-card .cap {
+				margin-top: 0.5em;
+				font-weight: 600;
+			}
+
+			.ex-card:focus-visible {
+				outline-width: 3px;
+				outline-style: solid;
+				outline-color: #212931;
+				outline-offset: 2px;
+			}
+
+			.betta {
+				cursor: grab;
+			}
+
+			.betta.selected {
+				outline-width: 3px;
+				outline-style: solid;
+				outline-color: #212931;
+				outline-offset: 2px;
+			}
+
+			.betta.placed {
+				opacity: 0.45;
+			}
+
+			.zone {
+				border-style: dashed;
+				border-color: #585858;
+				min-height: 230px;
+				cursor: pointer;
+			}
+
+			.zone.over {
+				background-color: #f0f0f0;
+			}
+
+			.zone .slot {
+				margin-top: 0.75em;
+				min-height: 3.5em;
+			}
+
+			.zone .slot svg {
+				max-width: 110px;
+				margin-top: 0;
+				margin-right: auto;
+				margin-bottom: 0;
+				margin-left: auto;
+			}
+
+			#result {
+				border-width: 2px;
+				border-style: solid;
+				border-color: #585858;
+				border-radius: 0.35em;
+				padding: 1.25em;
+				margin-top: 1.5em;
+				margin-right: 0;
+				margin-bottom: 0;
+				margin-left: 0;
+				box-sizing: border-box;
+				text-align: left;
+			}
+
+			#result h2 {
+				font-size: 1.4em;
+			}
+
+			#result.pass {
+				background-color: #e3f4e6;
+				border-color: #2e7d46;
+			}
+
+			#result.fail {
+				background-color: #fbe4e4;
+				border-color: #b3261e;
+			}
+
+			#main header p {
+				font-size: 1.6em;
+				line-height: 1.4;
+			}
+
+			#status {
+				font-size: 1.4em;
+			}
+
+			details summary {
+				font-size: 1.4em;
+				cursor: pointer;
+			}
+
+			details p {
+				font-size: 1.2em;
+			}
+
+			#checklist {
+				list-style: none;
+				padding-left: 0;
+				margin-bottom: 1em;
+			}
+
+			details {
+				margin-top: 1.5em;
+				margin-right: 0;
+				margin-bottom: 1.5em;
+				margin-left: 0;
+				border-width: 2px;
+				border-style: solid;
+				border-color: #c9c9c9;
+				border-radius: 0.35em;
+				padding-top: 0.75em;
+				padding-right: 1em;
+				padding-bottom: 0.75em;
+				padding-left: 1em;
+				background-color: #ffffff;
+				text-align: left;
+			}
+
+			details[open] {
+				border-color: #585858;
+			}
+
+			details p {
+				margin-top: 0.75em;
+				margin-right: 0;
+				margin-bottom: 0;
+				margin-left: 0;
+			}
+
+			.ex-layout {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 2.5em;
+				align-items: flex-start;
+				margin-bottom: 3em;
+			}
+
+			.ex-stage {
+				flex-grow: 3;
+				flex-shrink: 1;
+				flex-basis: 460px;
+				min-width: 0;
+			}
+
+			.ex-side {
+				flex-grow: 2;
+				flex-shrink: 1;
+				flex-basis: 300px;
+				min-width: 0;
+				position: sticky;
+				top: 1.5em;
+			}
+
+			.ex-stage .ex-card {
+				max-width: 300px;
+			}
+
+			.ex-stage #result {
+				max-width: 624px;
+				box-sizing: border-box;
+			}
+		</style>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+
+							<!-- Logo -->
+								<a href="../index.html" class="logo">
+									<span class="symbol"><img src="../images/logo.png" alt="" /></span><span class="title">Betta By Design</span>
+								</a>
+
+							<!-- Navigation -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<h2>Menu</h2>
+						<ul>
+							<li><a href="../index.html">Home</a></li>
+							<li><a href="../index.html#how">How it works</a></li>
+							<li><a href="../index.html#lessons">Lessons</a></li>
+							<li><a href="../index.html#study">For participants</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<header>
+								<div class="lesson-step">Lesson 1 &middot; Exercise 1 of 2</div>
+								<h1>Where will it be happiest?</h1>
+								<p id="prompt">Drag/click the <strong id="asked">male</strong> betta into the home where it will be happiest.</p>
+							</header>
+
+							<noscript><p>This exercise needs JavaScript. Please turn it on in your browser.</p></noscript>
+
+							<div class="ex-layout">
+								<div class="ex-stage">
+									<div class="ex-label">Choose a betta</div>
+									<div class="ex-row" id="bettas"></div>
+
+									<div class="ex-label">Choose a home</div>
+									<div class="ex-row">
+										<div class="ex-card zone" data-home="cup" role="button" tabindex="0" aria-label="Little cup">
+											<img src="../images/littlecup.png" alt="a cup with water" />
+											<div class="cap">Little cup</div>
+											<div class="slot"></div>
+										</div>
+										<div class="ex-card zone" data-home="tank" role="button" tabindex="0" aria-label="Set-up tank">
+											<img src="../images/setuptank.jpg" alt="set up tank with no fish" />
+											<div class="cap">Set-up tank</div>
+											<div class="slot"></div>
+										</div>
+									</div>
+
+									<div id="result" hidden>
+										<h2 id="resultTitle" tabindex="-1"></h2>
+										<ul id="checklist"></ul>
+										<p id="summary"></p>
+										<ul class="actions">
+											<li><a id="nextLink" href="../Lessons/lesson1b.html" class="button primary" hidden>Next video</a></li>
+											<li><button id="retryBtn" class="button" hidden>Try again</button></li>
+										</ul>
+									</div>
+								</div>
+
+								<aside class="ex-side">
+									<p id="status" aria-live="polite">Nothing placed yet.</p>
+
+									<details>
+										<summary>Need a hint?</summary>
+										<p>Males have long, colorful fins. Females are smaller, with shorter fins, and are often less brightly colored. Think about where a betta does best in.</p>
+									</details>
+
+									<ul class="actions">
+										<li><button id="checkBtn" class="button primary" disabled>Check my answer</button></li>
+									</ul>
+								</aside>
+
+							</div>
+
+							<ul class="actions">
+								<li><a href="../Lessons/lesson1a.html" class="button">Back to the video</a></li>
+								<li><a href="../index.html#lessons" class="button">Back to all lessons</a></li>
+							</ul>
+						</div>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<section>
+								<h2>About this project</h2>
+								<p>Betta By Design is a course project prototype. It works best on a computer with an internet connection.</p>
+							</section>
+							<ul class="copyright">
+								<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+			<script>
+				// The two betta drawings. Replace the svg text with an <img> of your own drawing if you like.
+				var BETTAS = {
+					male: {
+						alt: 'A betta with long, colorful, flowing fins',
+						svg: '<img src="../images/malebetta.jpg"/>'
+					},
+					female: {
+						alt: 'A smaller betta with short fins and duller color',
+						svg: '<img src="../images/femalebetta.jpeg"/>'
+					}
+				};
+
+				var HOMES = {
+					cup: 'little cup',
+					tank: 'set-up tank'
+				};
+
+				var STORE_KEY = 'bbd_ex1a';
+
+				var asked;
+				var order;
+				var placement;
+				var selected;
+				var passed = false;
+
+				var bettaRow = document.getElementById('bettas');
+				var askedEl = document.getElementById('asked');
+				var statusEl = document.getElementById('status');
+				var checkBtn = document.getElementById('checkBtn');
+				var resultBox = document.getElementById('result');
+				var resultTitle = document.getElementById('resultTitle');
+				var checklist = document.getElementById('checklist');
+				var summary = document.getElementById('summary');
+				var nextLink = document.getElementById('nextLink');
+				var retryBtn = document.getElementById('retryBtn');
+				var zones = document.querySelectorAll('.zone');
+
+				function shuffle(a) {
+					for (var i = a.length - 1; i > 0; i = i - 1) {
+						var j = Math.floor(Math.random() * (i + 1));
+						var t = a[i];
+						a[i] = a[j];
+						a[j] = t;
+					}
+					return a;
+				}
+
+				function letterFor(id) {
+					var position = order.indexOf(id);
+					if (position === 0) {
+						return 'A';
+					} else {
+						return 'B';
+					}
+				}
+
+				function setStatus(text) {
+					statusEl.textContent = text;
+				}
+
+				function setShown(el, shown) {
+					if (shown === true) {
+						el.hidden = false;
+						el.style.removeProperty('display');
+					} else {
+						el.hidden = true;
+						el.style.setProperty('display', 'none', 'important');
+					}
+				}
+
+				function logAttempt(didPass) {
+					try {
+						var saved = localStorage.getItem(STORE_KEY);
+						var d;
+						if (saved === null || saved === '') {
+							d = {
+								attempts: 0,
+								passed: false
+							};
+						} else {
+							d = JSON.parse(saved);
+						}
+
+						d.attempts = d.attempts + 1;
+
+						if (didPass === true) {
+							d.passed = true;
+						}
+
+						localStorage.setItem(STORE_KEY, JSON.stringify(d));
+					} catch (e) {
+						/* storage unavailable: ignore */
+					}
+				}
+
+				function markCards() {
+					var cards = bettaRow.querySelectorAll('.betta');
+					for (var i = 0; i < cards.length; i = i + 1) {
+						var id = cards[i].getAttribute('data-id');
+
+						if (selected === id) {
+							cards[i].classList.add('selected');
+						} else {
+							cards[i].classList.remove('selected');
+						}
+
+						if (placement !== null && placement.betta === id) {
+							cards[i].classList.add('placed');
+						} else {
+							cards[i].classList.remove('placed');
+						}
+					}
+				}
+
+				function clearSlots() {
+					for (var i = 0; i < zones.length; i = i + 1) {
+						var slot = zones[i].querySelector('.slot');
+						slot.innerHTML = '';
+					}
+				}
+
+				function select(id) {
+					if (passed === true) {
+						return;
+					}
+					selected = id;
+					markCards();
+					setStatus('Betta ' + letterFor(id) + ' selected. Now choose a home.');
+				}
+
+				function place(id, home) {
+					if (passed === true) {
+						return;
+					}
+					if (BETTAS[id] === undefined) {
+						return;
+					}
+
+					placement = {
+						betta: id,
+						home: home
+					};
+					selected = null;
+					clearSlots();
+
+					var slot = document.querySelector('.zone[data-home="' + home + '"] .slot');
+					slot.innerHTML = BETTAS[id].svg + '<div class="cap">Betta ' + letterFor(id) + '</div>';
+
+					markCards();
+					checkBtn.disabled = false;
+					setStatus('Betta ' + letterFor(id) + ' is in the ' + HOMES[home] + '. Select "Check my answer", or move it somewhere else.');
+				}
+
+				function addBettaCard(id) {
+					var el = document.createElement('div');
+					el.className = 'ex-card betta';
+					el.setAttribute('role', 'button');
+					el.setAttribute('tabindex', '0');
+					el.setAttribute('draggable', 'true');
+					el.setAttribute('data-id', id);
+					el.setAttribute('aria-label', 'Betta ' + letterFor(id) + ': ' + BETTAS[id].alt);
+					el.innerHTML = BETTAS[id].svg + '<div class="cap">Betta ' + letterFor(id) + '</div>';
+
+					el.addEventListener('dragstart', function (e) {
+						e.dataTransfer.setData('text/plain', id);
+						e.dataTransfer.effectAllowed = 'move';
+						select(id);
+					});
+
+					el.addEventListener('click', function () {
+						select(id);
+					});
+
+					el.addEventListener('keydown', function (e) {
+						if (e.key === 'Enter' || e.key === ' ') {
+							e.preventDefault();
+							select(id);
+						}
+					});
+
+					bettaRow.appendChild(el);
+				}
+
+				function renderBettas() {
+					bettaRow.innerHTML = '';
+					for (var i = 0; i < order.length; i = i + 1) {
+						addBettaCard(order[i]);
+					}
+				}
+
+				function newRound() {
+					if (Math.random() < 0.5) {
+						asked = 'male';
+					} else {
+						asked = 'female';
+					}
+
+					order = shuffle(['male', 'female']);
+					placement = null;
+					selected = null;
+					passed = false;
+
+					askedEl.textContent = asked;
+					clearSlots();
+					renderBettas();
+					markCards();
+
+					setShown(checkBtn, true);
+					checkBtn.disabled = true;
+					resultBox.hidden = true;
+					resultBox.className = '';
+					setShown(nextLink, false);
+					setShown(retryBtn, false);
+					setStatus('Nothing placed yet.');
+				}
+
+				function addLine(text) {
+					var li = document.createElement('li');
+					li.textContent = text;
+					checklist.appendChild(li);
+				}
+
+				function check() {
+					if (placement === null) {
+						return;
+					}
+
+					var rightBetta = false;
+					if (placement.betta === asked) {
+						rightBetta = true;
+					}
+
+					var rightHome = false;
+					if (placement.home === 'tank') {
+						rightHome = true;
+					}
+
+					var score = 0;
+					if (rightBetta === true) {
+						score = score + 1;
+					}
+					if (rightHome === true) {
+						score = score + 1;
+					}
+
+					if (rightBetta === true && rightHome === true) {
+						passed = true;
+					} else {
+						passed = false;
+					}
+
+					logAttempt(passed);
+
+					checklist.innerHTML = '';
+
+					if (rightBetta === true) {
+						addLine('Passed: You picked the ' + asked + ' betta.');
+					} else {
+						addLine('Not yet: You moved the ' + placement.betta + ' betta, but the question asked for the ' + asked + ' betta. Males have long, colorful fins. Females are smaller, with shorter fins, and are often less brightly colored.');
+					}
+
+					if (rightHome === true) {
+						addLine('Passed: A betta does best in a tank that is set up for it.');
+					} else {
+						addLine('Not yet: A betta does best in a tank that is set up for it, not in a little cup.');
+					}
+
+					if (passed === true) {
+						resultTitle.textContent = 'Nice work. You passed!';
+						summary.textContent = score + ' of 2 checks passed.';
+						resultBox.className = 'pass';
+						setShown(nextLink, true);
+						setShown(retryBtn, true);
+					} else {
+						resultTitle.textContent = 'Not this time.';
+						summary.textContent = score + ' of 2 checks passed. Fix what did not pass and try again.';
+						resultBox.className = 'fail';
+						setShown(nextLink, false);
+						setShown(retryBtn, true);
+					}
+
+					resultBox.hidden = false;
+					setShown(checkBtn, false);
+					resultTitle.focus();
+				}
+
+				function setUpZone(zone) {
+					var home = zone.getAttribute('data-home');
+
+					function tryPlace() {
+						if (selected) {
+							place(selected, home);
+						} else {
+							setStatus('Select a betta first, then select a home.');
+						}
+					}
+
+					zone.addEventListener('dragover', function (e) {
+						e.preventDefault();
+						zone.classList.add('over');
+					});
+
+					zone.addEventListener('dragleave', function () {
+						zone.classList.remove('over');
+					});
+
+					zone.addEventListener('drop', function (e) {
+						e.preventDefault();
+						zone.classList.remove('over');
+						var droppedId = e.dataTransfer.getData('text/plain');
+						place(droppedId, home);
+					});
+
+					zone.addEventListener('click', tryPlace);
+
+					zone.addEventListener('keydown', function (e) {
+						if (e.key === 'Enter' || e.key === ' ') {
+							e.preventDefault();
+							tryPlace();
+						}
+					});
+				}
+
+				for (var z = 0; z < zones.length; z = z + 1) {
+					setUpZone(zones[z]);
+				}
+
+				checkBtn.addEventListener('click', check);
+				retryBtn.addEventListener('click', newRound);
+				newRound();
+			</script>
+
+	</body>
+</html>

@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Lesson 2 Exercise 2 | Betta By Design</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+		<style>
+            [hidden] {
+	            display: none !important;
+            }
+			.lesson-step {
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				font-size: 0.8em;
+				font-weight: 600;
+				margin-bottom: 0.5em;
+			}
+
+			.ex-label {
+				text-transform: uppercase;
+				letter-spacing: 0.1em;
+				font-size: 0.8em;
+				font-weight: 600;
+				margin-top: 2em;
+				margin-right: 0;
+				margin-bottom: 0.5em;
+				margin-left: 0;
+			}
+
+			.ex-row {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 1.25em;
+				margin-top: 0;
+				margin-right: 0;
+				margin-bottom: 1em;
+				margin-left: 0;
+			}
+
+			.ex-card {
+				box-sizing: border-box;
+				border-width: 2px;
+				border-style: solid;
+				border-color: #c9c9c9;
+				border-radius: 0.35em;
+				padding: 0.75em;
+				text-align: center;
+				background-color: #ffffff;
+			}
+
+			.ex-card:focus-visible {
+				outline-width: 3px;
+				outline-style: solid;
+				outline-color: #212931;
+				outline-offset: 2px;
+			}
+
+			.ex-card .cap {
+				margin-top: 0.5em;
+				font-weight: 600;
+			}
+
+			.tank {
+				flex-grow: 1;
+				flex-shrink: 1;
+				flex-basis: 200px;
+				max-width: 260px;
+				cursor: pointer;
+			}
+
+			.tank img {
+				display: block;
+				width: 100%;
+				height: auto;
+				border-radius: 0.25em;
+			}
+
+			.tank .size {
+				margin-top: 0.5em;
+				font-size: 1.3em;
+				font-weight: 600;
+			}
+
+			.tank .mark {
+				margin-top: 0.25em;
+				min-height: 1.5em;
+				font-weight: 600;
+			}
+
+			.tank.selected {
+				border-width: 4px;
+				border-color: #212931;
+				background-color: #f0f0f0;
+				padding: calc(0.75em - 2px);
+			}
+
+			#result {
+				border-width: 2px;
+				border-style: solid;
+				border-color: #585858;
+				border-radius: 0.35em;
+				padding: 1.25em;
+				margin-top: 1.5em;
+				margin-right: 0;
+				margin-bottom: 0;
+				margin-left: 0;
+				box-sizing: border-box;
+				text-align: left;
+			}
+
+			#result h2 {
+				font-size: 1.4em;
+			}
+
+			#result.pass {
+				background-color: #e3f4e6;
+				border-color: #2e7d46;
+			}
+
+			#result.fail {
+				background-color: #fbe4e4;
+				border-color: #b3261e;
+			}
+
+			#main header p {
+				font-size: 1.6em;
+				line-height: 1.4;
+			}
+
+			#status {
+				font-size: 1.4em;
+			}
+
+			details summary {
+				font-size: 1.4em;
+				cursor: pointer;
+			}
+
+			details p {
+				font-size: 1.2em;
+			}
+
+			#checklist {
+				list-style: none;
+				padding-left: 0;
+				margin-bottom: 1em;
+			}
+
+			details {
+				margin-top: 1.5em;
+				margin-right: 0;
+				margin-bottom: 1.5em;
+				margin-left: 0;
+				border-width: 2px;
+				border-style: solid;
+				border-color: #c9c9c9;
+				border-radius: 0.35em;
+				padding-top: 0.75em;
+				padding-right: 1em;
+				padding-bottom: 0.75em;
+				padding-left: 1em;
+				background-color: #ffffff;
+				text-align: left;
+			}
+
+			details[open] {
+				border-color: #585858;
+			}
+
+			details p {
+				margin-top: 0.75em;
+				margin-right: 0;
+				margin-bottom: 0;
+				margin-left: 0;
+			}
+
+			.ex-layout {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 2.5em;
+				align-items: flex-start;
+				margin-bottom: 3em;
+			}
+
+			.ex-stage {
+				flex-grow: 3;
+				flex-shrink: 1;
+				flex-basis: 460px;
+				min-width: 0;
+			}
+
+			.ex-side {
+				flex-grow: 2;
+				flex-shrink: 1;
+				flex-basis: 300px;
+				min-width: 0;
+				position: sticky;
+				top: 1.5em;
+			}
+		</style>
+	</head>
+	<body class="is-preload">
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<div class="inner">
+
+							<!-- Logo -->
+								<a href="../index.html" class="logo">
+									<span class="symbol"><img src="../images/logo.png" alt="" /></span><span class="title">Betta By Design</span>
+								</a>
+
+							<!-- Navigation -->
+								<nav>
+									<ul>
+										<li><a href="#menu">Menu</a></li>
+									</ul>
+								</nav>
+
+						</div>
+					</header>
+
+				<!-- Menu -->
+					<nav id="menu">
+						<h2>Menu</h2>
+						<ul>
+							<li><a href="../index.html">Home</a></li>
+							<li><a href="../index.html#how">How it works</a></li>
+							<li><a href="../index.html#lessons">Lessons</a></li>
+							<li><a href="../index.html#study">For participants</a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+							<header>
+								<div class="lesson-step">Lesson 2 &middot; Exercise 2 of 2</div>
+								<h1>How much space does a betta need?</h1>
+								<p id="prompt">Select every tank that is big enough for one betta.</p>
+							</header>
+
+							<noscript><p>This exercise needs JavaScript. Please turn it on in your browser.</p></noscript>
+
+							<div class="ex-layout">
+								<div class="ex-stage">
+									<div class="ex-label">Tanks</div>
+									<div class="ex-row" id="tanks"></div>
+
+									<div id="result" hidden>
+										<h2 id="resultTitle" tabindex="-1"></h2>
+										<ul id="checklist"></ul>
+										<p id="summary"></p>
+										<ul class="actions">
+											<li><a id="nextLink" href="../Lessons/lesson3a.html" class="button primary" hidden>Continue to Lesson 3</a></li>
+											<li><button id="retryBtn" class="button" hidden>Try again</button></li>
+										</ul>
+									</div>
+								</div>
+
+								<aside class="ex-side">
+									<p id="status" aria-live="polite">Nothing placed yet.</p>
+
+									<details>
+										<summary>Need a hint?</summary>
+										<p>Think of 5 gallons as the floor, not the goal.</p>
+									</details>
+
+									<ul class="actions">
+										<li><button id="checkBtn" class="button primary" disabled>Check my answers</button></li>
+									</ul>
+								</aside>
+
+							</div>
+
+							<ul class="actions">
+								<li><a href="../Lessons/lesson2b.html" class="button">Back to the video</a></li>
+								<li><a href="../index.html#lessons" class="button">Back to all lessons</a></li>
+							</ul>
+						</div>
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<div class="inner">
+							<section>
+								<h2>About this project</h2>
+								<p>Betta By Design is a course project prototype. It works best on a computer with an internet connection.</p>
+							</section>
+							<ul class="copyright">
+								<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</footer>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="../assets/js/jquery.min.js"></script>
+			<script src="../assets/js/browser.min.js"></script>
+			<script src="../assets/js/breakpoints.min.js"></script>
+			<script src="../assets/js/util.js"></script>
+			<script src="../assets/js/main.js"></script>
+			<script>
+				var TANKS = {
+					g25: {
+						label: '2.5 gallons',
+						img: '../images/fishbowl.jpeg',
+						alt: 'a small fish bowl',
+						ok: false,
+						why: 'Most hobbyists recommend at least 5 gallons for one betta.'
+					},
+					g5: {
+						label: '5 gallons',
+						img: '../images/setuptank.jpg',
+						alt: 'a set up tank with no fish',
+						ok: true,
+						why: 'Think of 5 gallons as the floor, not the goal.'
+					},
+					g10: {
+						label: '10 gallons',
+						img: '../images/emptytank.jpg',
+						alt: 'an empty tank',
+						ok: true,
+						why: 'A bigger tank is easier to keep stable, and your betta has more space.'
+					}
+				};
+
+				var IDS = ['g25', 'g5', 'g10'];
+				var STORE_KEY = 'bbd_ex2b';
+
+				var order;
+				var picked;
+				var locked;
+				var passed = false;
+
+				var tankRow = document.getElementById('tanks');
+				var statusEl = document.getElementById('status');
+				var checkBtn = document.getElementById('checkBtn');
+				var resultBox = document.getElementById('result');
+				var resultTitle = document.getElementById('resultTitle');
+				var checklist = document.getElementById('checklist');
+				var summary = document.getElementById('summary');
+				var nextLink = document.getElementById('nextLink');
+				var retryBtn = document.getElementById('retryBtn');
+
+				function shuffle(a) {
+					for (var i = a.length - 1; i > 0; i = i - 1) {
+						var j = Math.floor(Math.random() * (i + 1));
+						var t = a[i];
+						a[i] = a[j];
+						a[j] = t;
+					}
+					return a;
+				}
+
+				function setStatus(text) {
+					statusEl.textContent = text;
+				}
+
+				function setShown(el, shown) {
+					if (shown === true) {
+						el.hidden = false;
+						el.style.removeProperty('display');
+					} else {
+						el.hidden = true;
+						el.style.setProperty('display', 'none', 'important');
+					}
+				}
+
+				function countPicked() {
+					var n = 0;
+					for (var i = 0; i < IDS.length; i = i + 1) {
+						if (picked[IDS[i]] === true) {
+							n = n + 1;
+						}
+					}
+					return n;
+				}
+
+				function logAttempt(didPass) {
+					try {
+						var saved = localStorage.getItem(STORE_KEY);
+						var d;
+						if (saved === null || saved === '') {
+							d = {
+								attempts: 0,
+								passed: false
+							};
+						} else {
+							d = JSON.parse(saved);
+						}
+
+						d.attempts = d.attempts + 1;
+
+						if (didPass === true) {
+							d.passed = true;
+						}
+
+						localStorage.setItem(STORE_KEY, JSON.stringify(d));
+					} catch (e) {
+					}
+				}
+
+				function markTanks() {
+					var cards = tankRow.querySelectorAll('.tank');
+					for (var i = 0; i < cards.length; i = i + 1) {
+						var id = cards[i].getAttribute('data-id');
+						var mark = cards[i].querySelector('.mark');
+
+						if (picked[id] === true) {
+							cards[i].classList.add('selected');
+							cards[i].setAttribute('aria-pressed', 'true');
+							mark.textContent = 'Selected';
+						} else {
+							cards[i].classList.remove('selected');
+							cards[i].setAttribute('aria-pressed', 'false');
+							mark.textContent = '';
+						}
+					}
+				}
+
+				function updateStatus() {
+					var n = countPicked();
+					if (n === 0) {
+						setStatus('No tanks selected yet.');
+					} else if (n === 1) {
+						setStatus('1 tank selected.');
+					} else {
+						setStatus(n + ' tanks selected.');
+					}
+
+					if (n === 0) {
+						checkBtn.disabled = true;
+					} else {
+						checkBtn.disabled = false;
+					}
+				}
+
+				function toggle(id) {
+					if (locked === true) {
+						return;
+					}
+
+					if (picked[id] === true) {
+						picked[id] = false;
+					} else {
+						picked[id] = true;
+					}
+
+					markTanks();
+					updateStatus();
+				}
+
+				function addTankCard(id) {
+					var el = document.createElement('div');
+					el.className = 'ex-card tank';
+					el.setAttribute('role', 'button');
+					el.setAttribute('tabindex', '0');
+					el.setAttribute('aria-pressed', 'false');
+					el.setAttribute('data-id', id);
+					el.setAttribute('aria-label', TANKS[id].label);
+					el.innerHTML = '<img src="' + TANKS[id].img + '" alt="' + TANKS[id].alt + '" /><div class="size">' + TANKS[id].label + '</div><div class="mark"></div>';
+
+					el.addEventListener('click', function () {
+						toggle(id);
+					});
+
+					el.addEventListener('keydown', function (e) {
+						if (e.key === 'Enter' || e.key === ' ') {
+							e.preventDefault();
+							toggle(id);
+						}
+					});
+
+					tankRow.appendChild(el);
+				}
+
+				function newRound() {
+					order = shuffle(IDS.slice());
+					picked = {};
+					locked = false;
+					passed = false;
+
+					tankRow.innerHTML = '';
+					for (var i = 0; i < order.length; i = i + 1) {
+						addTankCard(order[i]);
+					}
+
+					markTanks();
+
+					setShown(checkBtn, true);
+					checkBtn.disabled = true;
+					resultBox.hidden = true;
+					resultBox.className = '';
+					setShown(nextLink, false);
+					setShown(retryBtn, false);
+					setStatus('No tanks selected yet.');
+				}
+
+				function addLine(text) {
+					var li = document.createElement('li');
+					li.textContent = text;
+					checklist.appendChild(li);
+				}
+
+				function check() {
+					if (countPicked() === 0) {
+						return;
+					}
+
+					var score = 0;
+					checklist.innerHTML = '';
+
+					for (var i = 0; i < order.length; i = i + 1) {
+						var id = order[i];
+						var t = TANKS[id];
+
+						var chosen = false;
+						if (picked[id] === true) {
+							chosen = true;
+						}
+
+						var sentence;
+						if (t.ok === true) {
+							sentence = t.label + ' is big enough. ' + t.why;
+						} else {
+							sentence = t.label + ' is too small. ' + t.why;
+						}
+
+						if (chosen === t.ok) {
+							score = score + 1;
+							addLine('Passed: ' + sentence);
+						} else {
+							addLine('Not yet: ' + sentence);
+						}
+					}
+
+					if (score === IDS.length) {
+						passed = true;
+					} else {
+						passed = false;
+					}
+
+					logAttempt(passed);
+					locked = true;
+
+					if (passed === true) {
+						resultTitle.textContent = 'Nice work. You passed!';
+						summary.textContent = score + ' of ' + IDS.length + ' checks passed.';
+						resultBox.className = 'pass';
+						setShown(nextLink, true);
+						setShown(retryBtn, true);
+					} else {
+						resultTitle.textContent = 'Not this time.';
+						summary.textContent = score + ' of ' + IDS.length + ' checks passed. Fix what did not pass and try again.';
+						resultBox.className = 'fail';
+						setShown(nextLink, false);
+						setShown(retryBtn, true);
+					}
+
+					resultBox.hidden = false;
+					setShown(checkBtn, false);
+					resultTitle.focus();
+				}
+
+				checkBtn.addEventListener('click', check);
+				retryBtn.addEventListener('click', newRound);
+				newRound();
+			</script>
+
+	</body>
+</html>
